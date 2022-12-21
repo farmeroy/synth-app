@@ -1,10 +1,19 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "../styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Suspense } from "react";
+import SynthWrapper from "../src/components/SynthWrapper";
 
 export default function Home() {
-  return <></>;
+  return (
+    <>
+      <Head>
+        <title>Synth App</title>
+      </Head>
+      <div className="flex justify-around">
+        <h1>Synth App</h1>
+      </div>
+      <Suspense>
+        <SynthWrapper />
+      </Suspense>
+    </>
+  );
 }
