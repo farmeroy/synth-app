@@ -1,6 +1,10 @@
 import Head from "next/head";
 import { Suspense } from "react";
-import SynthWrapper from "../src/components/SynthWrapper";
+import dynamic from "next/dynamic";
+
+const SynthWrapper = dynamic(() => import("../src/components/SynthWrapper"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
