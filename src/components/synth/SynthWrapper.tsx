@@ -1,12 +1,12 @@
 import * as Tone from "tone";
 import NoteNode from "./NoteNode";
-import cnf from "../lib/config.json";
+import { useRecoilValue } from "recoil";
+import notesAtom from "./store/notesAtom";
 
 const SynthWrapper = ({}) => {
+  const notes = useRecoilValue(notesAtom);
   Tone.start();
-  const notes = cnf.notes;
   const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-  console.log({ notes });
 
   const handlePlaySynth = () => {
     const now = Tone.now();

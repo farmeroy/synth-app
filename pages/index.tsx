@@ -2,9 +2,12 @@ import Head from "next/head";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
-const SynthWrapper = dynamic(() => import("../src/components/SynthWrapper"), {
-  ssr: false,
-});
+const SynthWrapper = dynamic(
+  () => import("../src/components/synth/SynthWrapper"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   return (
