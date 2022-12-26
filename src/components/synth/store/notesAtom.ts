@@ -1,15 +1,6 @@
 import { atom } from "recoil";
 import cnf from "../../../lib/config.json";
 
-/**
- * {
- * notes: [
- * {note: C4,
- * isActive: false}
- * ]
- * }
- */
-
 const createNoteTable = (noteDefaults: string[], length: number) => {
   const notes = [];
   for (let i = 0; i < length; i++) {
@@ -20,7 +11,7 @@ const createNoteTable = (noteDefaults: string[], length: number) => {
 
 const notesAtom = atom({
   key: `notesAtom${Date.now()}`,
-  default: createNoteTable(cnf.notes, cnf.length),
+  default: cnf.notes,
 });
 
 export default notesAtom;

@@ -22,8 +22,9 @@ const SynthWrapper = ({}) => {
         onClick={() => handlePlaySynth()}
         className="p-2 border border-black text-3xl"
       >
-        Synth
+        Start
       </button>
+      <button onClick={() => Tone.Transport.stop()}>Stop</button>
       {noteTable.map((notes) => (
         <div key={Math.random()}>
           {notes.map((note) => (

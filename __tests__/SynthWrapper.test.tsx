@@ -1,13 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import SynthWrapper from "../src/components/SynthWrapper";
+import SynthWrapper from "../src/components/synth/SynthWrapper";
+import { RecoilRoot } from "recoil";
 
 describe("SynthWrapper", () => {
   it("renders a heading", () => {
-    render(<SynthWrapper />);
+    render(
+      <RecoilRoot>
+        <SynthWrapper />
+      </RecoilRoot>
+    );
 
     const heading = screen.getByRole("heading", {
-      name: /synth/i,
+      name: /controls/i,
     });
     expect(heading).toBeInTheDocument();
   });
