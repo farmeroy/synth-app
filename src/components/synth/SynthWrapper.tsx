@@ -1,19 +1,25 @@
 import * as Tone from "tone";
 import NoteNode from "./NoteNode";
 import { useRecoilValue } from "recoil";
-import notesAtom from "./store/notesAtom";
+import noteTableState from "./store/notesAtom";
 
 const SynthWrapper = ({}) => {
-  const noteTable = useRecoilValue(notesAtom);
-  Tone.start();
-  const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+  const noteTable = useRecoilValue(noteTableState);
+
+  const synths = [];
+
+  for (const note of noteTable) {
+    const synth = new Tone.Synth().toDestination();
+    synths.push(
+      new Tone.Loop((time) => {
+        synth.triggerAttackRelease(note.note, "8n", time);
+      }, "4n").start(noteTable.indexOf(note))
+    );
+  }
 
   const handlePlaySynth = () => {
-    const now = Tone.now();
-    for (let i = 0; i < noteTable.length; i++) {
-      synth.triggerAttack(noteTable[i], now + i);
-      synth.triggerRelease(noteTable[i], now + 1 + i);
-    }
+    Tone.start();
+    Tone.Transport.start();
   };
 
   return (
@@ -25,12 +31,8 @@ const SynthWrapper = ({}) => {
         Start
       </button>
       <button onClick={() => Tone.Transport.stop()}>Stop</button>
-      {noteTable.map((notes) => (
-        <div key={Math.random()}>
-          {notes.map((note) => (
-            <NoteNode key={note} note={note} />
-          ))}
-        </div>
+      {noteTable.map((note) => (
+        <NoteNode key={Math.random()} note={note.note} />
       ))}
     </div>
   );

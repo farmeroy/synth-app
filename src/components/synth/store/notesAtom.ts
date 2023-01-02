@@ -9,9 +9,19 @@ const createNoteTable = (noteDefaults: string[], length: number) => {
   return notes;
 };
 
-const notesAtom = atom({
+const noteTableState = atom({
   key: `notesAtom${Date.now()}`,
-  default: cnf.notes,
+  default: [
+    { note: "A3" },
+    { note: "C3" },
+    { note: "E3" },
+    { note: "A4" },
+    { note: "G4" },
+    { note: "A5" },
+    { note: "A4" },
+    { note: "A4" },
+    { note: "A4" },
+  ],
 });
 
-export default notesAtom;
+export default noteTableState;
