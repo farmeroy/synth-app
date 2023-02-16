@@ -35,11 +35,15 @@ const SynthWrapper = ({}) => {
       >
         Start
       </button>
-      <button onClick={() => Tone.Transport.stop()}>Stop</button>
+      <button
+        onClick={() => {
+          Tone.Transport.stop();
+          setCurrentRow(0);
+        }}
+      >
+        Stop
+      </button>
       {notesRow}
-      {/* {noteTable.map((note) => ( */}
-      {/*   <NoteNode key={Math.random()} note={noteTable.indexOf(note)} /> */}
-      {/* ))} */}
     </div>
   );
 };
