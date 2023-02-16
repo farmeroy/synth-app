@@ -20,9 +20,9 @@ const SynthWrapper = ({}) => {
     ).start(0);
     Tone.Transport.timeSignature = [9, 8];
     Tone.Transport.bpm.value = 120;
-    Tone.Transport.scheduleRepeat(() => {
-      setCurrentRow((row) => (row < table.width ? row + 1 : 1));
-    }, "8n");
+    // Tone.Transport.scheduleRepeat(() => {
+    //   setCurrentRow((row) => (row < table.width ? row + 1 : 1));
+    // }, "8n");
     Tone.start();
     Tone.Transport.start();
   };
