@@ -42,7 +42,7 @@ const SynthWrapper = ({}) => {
       <button
         onClick={() => {
           Tone.Transport.stop();
-          setCurrentRow((row) => 0);
+          setCurrentRow(0);
         }}
       >
         Stop
