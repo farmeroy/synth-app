@@ -1,26 +1,31 @@
 import * as Tone from "tone";
 import NoteNode from "./NoteNode";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import noteTableState from "./store/notesAtom";
+import tableAtom from "./store/tableAtom";
+import currentRowAtom from "./store/currentRowAtom";
 
 const SynthWrapper = ({}) => {
   const noteTable = useRecoilValue(noteTableState);
+  const table = useRecoilValue(tableAtom);
+  const setCurrentRow = useSetRecoilState(currentRowAtom);
 
-  const synths = [];
-
-  for (const note of noteTable) {
-    const synth = new Tone.Synth().toDestination();
-    synths.push(
-      new Tone.Loop((time) => {
-        synth.triggerAttackRelease(note.note, "8n", time);
-      }, "4n").start(noteTable.indexOf(note))
-    );
-  }
+  const synth = new Tone.Synth().toDestination();
+  new Tone.Sequence(
+    (time, note) => {
+      synth.triggerAttackRelease(note, 0.2, time);
+    },
+    noteTable.map((note) => note.note)
+  ).start(0);
 
   const handlePlaySynth = () => {
     Tone.start();
     Tone.Transport.start();
   };
+  const notesRow = [];
+  for (let i = 0; i < table.width; i++) {
+    notesRow.push(<NoteNode note={i} />);
+  }
 
   return (
     <div className="flex justify-around p-2">
@@ -31,9 +36,10 @@ const SynthWrapper = ({}) => {
         Start
       </button>
       <button onClick={() => Tone.Transport.stop()}>Stop</button>
-      {noteTable.map((note) => (
-        <NoteNode key={Math.random()} note={note.note} />
-      ))}
+      {notesRow}
+      {/* {noteTable.map((note) => ( */}
+      {/*   <NoteNode key={Math.random()} note={noteTable.indexOf(note)} /> */}
+      {/* ))} */}
     </div>
   );
 };
