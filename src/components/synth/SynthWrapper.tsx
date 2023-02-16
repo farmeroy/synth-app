@@ -1,6 +1,6 @@
 import * as Tone from "tone";
 import NoteNode from "./NoteNode";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import noteTableState from "./store/notesAtom";
 import tableAtom from "./store/tableAtom";
 import currentRowAtom from "./store/currentRowAtom";
@@ -10,21 +10,25 @@ const SynthWrapper = ({}) => {
   const table = useRecoilValue(tableAtom);
   const setCurrentRow = useSetRecoilState(currentRowAtom);
 
-  const synth = new Tone.Synth().toDestination();
-  new Tone.Sequence(
-    (time, note) => {
-      synth.triggerAttackRelease(note, 0.2, time);
-    },
-    noteTable.map((note) => `${note.note}${note.octave}`)
-  ).start(0);
-
   const handlePlaySynth = () => {
+    const synth = new Tone.Synth().toDestination();
+    new Tone.Sequence(
+      (time, note) => {
+        synth.triggerAttackRelease(note, "8n", time);
+      },
+      noteTable.map((note) => `${note.note}${note.octave}`)
+    ).start(0);
+    Tone.Transport.timeSignature = [9, 8];
+    Tone.Transport.bpm.value = 120;
+    Tone.Transport.scheduleRepeat(() => {
+      setCurrentRow((row) => (row < table.width ? row + 1 : 1));
+    }, "8n");
     Tone.start();
     Tone.Transport.start();
   };
   const notesRow = [];
   for (let i = 0; i < table.width; i++) {
-    notesRow.push(<NoteNode key={i} note={i} />);
+    notesRow.push(<NoteNode tone={Tone} key={i} note={i} />);
   }
 
   return (
@@ -35,7 +39,7 @@ const SynthWrapper = ({}) => {
       >
         Start
       </button>
-      <button onClick={() => Tone.Transport.stop()}>Stop</button>
+      <button onClick={() => Tone.Transport.pause()}>Stop</button>
       {notesRow}
       {/* {noteTable.map((note) => ( */}
       {/*   <NoteNode key={Math.random()} note={noteTable.indexOf(note)} /> */}
