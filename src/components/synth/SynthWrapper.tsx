@@ -15,7 +15,7 @@ const SynthWrapper = ({}) => {
     (time, note) => {
       synth.triggerAttackRelease(note, 0.2, time);
     },
-    noteTable.map((note) => note.note)
+    noteTable.map((note) => `${note.note}${note.octave}`)
   ).start(0);
 
   const handlePlaySynth = () => {
@@ -24,7 +24,7 @@ const SynthWrapper = ({}) => {
   };
   const notesRow = [];
   for (let i = 0; i < table.width; i++) {
-    notesRow.push(<NoteNode note={i} />);
+    notesRow.push(<NoteNode key={i} note={i} />);
   }
 
   return (

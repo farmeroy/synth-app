@@ -1,16 +1,20 @@
 import { atomFamily } from "recoil";
 
-const defaultNotes = ["A3", "C3", "E3", "A4", "C4", "E4"];
+const defaultNotes = ["A", "C", "E", "A", "C", "E"];
 
-const id = Math.random();
 const randomNote = () =>
   defaultNotes[Math.floor(Math.random() * defaultNotes.length)];
 
+const randomOctave = () => Math.floor(Math.random() * 5) + 1;
+
 const note = randomNote();
+const octave = randomOctave();
+
 const noteAtom = atomFamily({
   key: "note",
   default: {
-    note: note,
+    note,
+    octave,
   },
 });
 
