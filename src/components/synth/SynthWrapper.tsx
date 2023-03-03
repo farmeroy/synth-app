@@ -24,11 +24,12 @@ const SynthWrapper = ({}) => {
     //   setCurrentRow((row) => (row < table.width ? row + 1 : 1));
     // }, "8n");
     Tone.start();
+    Tone.Transport.timeSignature = [9, 8];
     Tone.Transport.start();
   };
   const notesRow = [];
   for (let i = 0; i < table.width; i++) {
-    notesRow.push(<NoteNode tone={Tone} key={i} note={i} />);
+    notesRow.push(<NoteNode key={i} index={i} />);
   }
 
   return (
