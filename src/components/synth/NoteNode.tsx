@@ -1,5 +1,5 @@
 interface NoteNodeProps {
-  note: number;
+  index: number;
 }
 import noteAtom from "./store/noteAtom";
 import currentRowAtom from "./store/currentRowAtom";
@@ -9,8 +9,8 @@ import { ChangeEvent } from "react";
 const notes = ["A", "B", "C", "D", "E", "F", "G"];
 const octaves = [1, 2, 3, 4, 5, 6];
 
-const NoteNode = ({ note }: NoteNodeProps) => {
-  const [noteObject, setNoteObject] = useRecoilState(noteAtom(note));
+const NoteNode = ({ index }: NoteNodeProps) => {
+  const [noteObject, setNoteObject] = useRecoilState(noteAtom(index));
   const currentRow = useRecoilValue(currentRowAtom);
   const handleSetNote = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const NoteNode = ({ note }: NoteNodeProps) => {
     setNoteObject({ ...noteObject, octave: Number(e.currentTarget.value) });
   };
   return (
-    <div className={currentRow === note ? "bg-black-400" : "bg-blue-400"}>
+    <div className={currentRow === index + 1 ? "bg-black-400" : "bg-blue-400"}>
       <select onChange={handleSetNote} defaultValue={noteObject.note}>
         {notes.map((note) => (
           <option key={note} value={note}>

@@ -20,11 +20,12 @@ const SynthWrapper = ({}) => {
 
   const handlePlaySynth = () => {
     Tone.start();
+    Tone.Transport.timeSignature = [9, 8];
     Tone.Transport.start();
   };
   const notesRow = [];
   for (let i = 0; i < table.width; i++) {
-    notesRow.push(<NoteNode key={i} note={i} />);
+    notesRow.push(<NoteNode key={i} index={i} />);
   }
 
   return (
