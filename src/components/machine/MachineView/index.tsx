@@ -23,54 +23,41 @@ const machine = {
   width: 4,
   height: 3,
 };
+const getNoteTable = (notes) => {
+  const noteTable = [];
+  for (const note of notes) {
+    noteTable.push([
+      ...note.activeNotes.map((activeNote) => (activeNote ? note.note : null)),
+    ]);
+  }
+  return noteTable;
+};
 
 const MachineView = () => {
-  const getNoteTable = (notes) => {
-    const noteTable = [];
-    for (const note of notes) {
-      noteTable.push([
-        ...note.activeNotes.map((activeNote) =>
-          activeNote ? note.note : null
-        ),
-      ]);
-    }
-    return noteTable;
-  };
   const noteTableArray = getNoteTable(notes);
   console.log(
     "notes",
     noteTableArray.map((notes) => notes[0])
   );
+  // create our instrument
   const poly = new Tone.PolySynth().toDestination();
   const handleMachinePlay = () => {
     Tone.start();
-    for (let i = 0; i < machine.width; i++) {}
-    Tone.Transport.scheduleRepeat(
-      () => {
-        poly.triggerAttackRelease(
-          noteTableArray
-            .map((notes) => notes[0])
-            .filter((note) => note !== null),
-          "8n"
-        );
-      },
-      "1n",
-      "0:0:0"
-    );
-    Tone.Transport.scheduleRepeat(
-      () => {
-        poly.triggerAttackRelease(["A4", "C4", "E4", "A5"], "8n");
-      },
-      "1n",
-      "0:1:0"
-    );
-    Tone.Transport.scheduleRepeat(
-      () => {
-        poly.triggerAttackRelease(["A4"], "8n");
-      },
-      "1n",
-      "0:2:0"
-    );
+    // machine.width has to be the same as the lenght of the active notes!
+    for (let i = 0; i < machine.width; i++) {
+      Tone.Transport.scheduleRepeat(
+        () => {
+          poly.triggerAttackRelease(
+            noteTableArray
+              .map((notes) => notes[i])
+              .filter((note) => note !== null),
+            "8n"
+          );
+        },
+        "1n",
+        `0:${i}:0`
+      );
+    }
     Tone.Transport.start();
   };
 
