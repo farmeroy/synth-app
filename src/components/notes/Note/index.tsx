@@ -3,7 +3,7 @@ export interface NoteProps {
   active: boolean;
 }
 const Note = ({ key, active }: NoteProps) => {
-  return <button></button>;
+  return <button className="border border-black w-full"></button>;
 };
 
 export default Note;

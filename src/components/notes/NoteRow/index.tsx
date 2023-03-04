@@ -8,10 +8,10 @@ import Note from "../Note";
 
 const NoteRow = ({ note, waveShape, activeNotes }: NoteRowProps) => {
   const notes = activeNotes.map((note) => (
-    <Note key={activeNotes.indexOf(note)} active={note} />
+    <Note key={Math.random()} active={note} />
   ));
 
-  return <div>{notes}</div>;
+  return <div className="flex h-12 w-full">{notes}</div>;
 };
 
 export default NoteRow;

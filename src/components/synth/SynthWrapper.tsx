@@ -23,6 +23,17 @@ const SynthWrapper = ({}) => {
     // Tone.Transport.scheduleRepeat(() => {
     //   setCurrentRow((row) => (row < table.width ? row + 1 : 1));
     // }, "8n");
+    //
+    // create a second sequence with a new instrument
+    const synth2 = new Tone.Synth().toDestination();
+    new Tone.Sequence(
+      (time, note) => {
+        synth2.triggerAttackRelease(note, "8n", time);
+      },
+      ["C4"]
+    ).start(0);
+    Tone.Transport.timeSignature = [9, 8];
+    Tone.Transport.bpm.value = 120;
     Tone.start();
     Tone.Transport.timeSignature = [9, 8];
     Tone.Transport.start();
