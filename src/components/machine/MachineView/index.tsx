@@ -19,18 +19,40 @@ const notes = [
   },
 ];
 
+const machine = {
+  width: 4,
+  height: 3,
+};
+
 const MachineView = () => {
   const getNoteTable = (notes) => {
     const noteTable = [];
-    for (const note in notes) {
+    for (const note of notes) {
+      noteTable.push([
+        ...note.activeNotes.map((activeNote) =>
+          activeNote ? note.note : null
+        ),
+      ]);
     }
+    return noteTable;
   };
+  const noteTableArray = getNoteTable(notes);
+  console.log(
+    "notes",
+    noteTableArray.map((notes) => notes[0])
+  );
+  const poly = new Tone.PolySynth().toDestination();
   const handleMachinePlay = () => {
     Tone.start();
-    const poly = new Tone.PolySynth().toDestination();
+    for (let i = 0; i < machine.width; i++) {}
     Tone.Transport.scheduleRepeat(
       () => {
-        poly.triggerAttackRelease(["G4", "D4", "D5"], "8n");
+        poly.triggerAttackRelease(
+          noteTableArray
+            .map((notes) => notes[0])
+            .filter((note) => note !== null),
+          "8n"
+        );
       },
       "1n",
       "0:0:0"
