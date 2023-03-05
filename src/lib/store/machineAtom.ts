@@ -1,16 +1,16 @@
 import { atom } from "recoil";
 
-export const IMachineAtom = {
-  height: Number,
-  width: Number,
-  tempo: Number,
-};
+export interface IMachineAtom {
+  height: number;
+  width: number;
+  tempo: number;
+}
 
 const machineAtom = atom({
   key: "machine",
   default: {
-    height: 4,
-    width: 8,
+    height: 3,
+    width: 4,
     tempo: 120,
   },
 });
