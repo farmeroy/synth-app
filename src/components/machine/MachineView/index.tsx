@@ -35,15 +35,12 @@ const getNoteTable = (notes) => {
 
 const MachineView = () => {
   const noteTableArray = getNoteTable(notes);
-  console.log(
-    "notes",
-    noteTableArray.map((notes) => notes[0])
-  );
   // create our instrument
   const poly = new Tone.PolySynth().toDestination();
+
   const handleMachinePlay = () => {
     Tone.start();
-    // machine.width has to be the same as the lenght of the active notes!
+    // @todo: machine.width has to be the same as the length of the active notes!
     for (let i = 0; i < machine.width; i++) {
       Tone.Transport.scheduleRepeat(
         () => {
@@ -73,7 +70,14 @@ const MachineView = () => {
     <>
       <div className="flex-col w-full">{noteTable}</div>
       <button onClick={handleMachinePlay}>Start</button>
-      <button onClick={() => Tone.Transport.stop()}>stop</button>
+      <button
+        onClick={() => {
+          Tone.Transport.stop();
+          Tone.Transport.cancel();
+        }}
+      >
+        stop
+      </button>
     </>
   );
 };

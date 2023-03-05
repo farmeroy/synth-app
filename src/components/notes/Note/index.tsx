@@ -1,9 +1,9 @@
 export interface NoteProps {
-  key: number;
   active: boolean;
+  note: String;
 }
-const Note = ({ key, active }: NoteProps) => {
-  return <button className="border border-black w-full"></button>;
+const Note = ({ note, active }: NoteProps) => {
+  return <button className="border border-black w-full">{note}</button>;
 };
 
 export default Note;
