@@ -1,39 +1,25 @@
 import NoteRow from "../../notes/NoteRow";
 import * as Tone from "tone";
+import { useRecoilValue } from "recoil";
+import machineAtom from "../../../lib/store/machineAtom";
+import notesAtom, { TNotes } from "../../../lib/store/notesAtom";
+import { Frequency } from "tone/build/esm/core/type/Units";
 
-const notes = [
-  {
-    note: "A3",
-    waveShape: "sine",
-    activeNotes: [true, false, false, true],
-  },
-  {
-    note: "C4",
-    waveShape: "sine",
-    activeNotes: [true, false, true, true],
-  },
-  {
-    note: "E4",
-    waveShape: "sine",
-    activeNotes: [true, true, false, true],
-  },
-];
-
-const machine = {
-  width: 4,
-  height: 3,
-};
-const getNoteTable = (notes) => {
+const getNoteTable = (notes: TNotes) => {
   const noteTable = [];
   for (const note of notes) {
+    console.log(note.activeNotes);
     noteTable.push([
       ...note.activeNotes.map((activeNote) => (activeNote ? note.note : null)),
     ]);
   }
+
   return noteTable;
 };
 
 const MachineView = () => {
+  const machine = useRecoilValue(machineAtom);
+  const notes = useRecoilValue(notesAtom);
   const noteTableArray = getNoteTable(notes);
   // create our instrument
   const poly = new Tone.PolySynth().toDestination();
@@ -47,7 +33,7 @@ const MachineView = () => {
           poly.triggerAttackRelease(
             noteTableArray
               .map((notes) => notes[i])
-              .filter((note) => note !== null),
+              .filter((note) => note !== null) as Frequency | Frequency[],
             "8n"
           );
         },
@@ -58,8 +44,9 @@ const MachineView = () => {
     Tone.Transport.start();
   };
 
-  const noteTable = notes.map((note) => (
+  const noteTable = notes.map((note, index) => (
     <NoteRow
+      index={index}
       key={Math.random()}
       activeNotes={note.activeNotes}
       waveShape={note.waveShape}
