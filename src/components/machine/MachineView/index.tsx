@@ -4,23 +4,12 @@ import { useRecoilValue } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
 import notesAtom, { TNotes } from "../../../lib/store/notesAtom";
 import { Frequency } from "tone/build/esm/core/type/Units";
-
-const getNoteTable = (notes: TNotes) => {
-  const noteTable = [];
-  for (const note of notes) {
-    console.log(note.activeNotes);
-    noteTable.push([
-      ...note.activeNotes.map((activeNote) => (activeNote ? note.note : null)),
-    ]);
-  }
-
-  return noteTable;
-};
+import noteTableState from "../../../lib/store/noteTableState";
 
 const MachineView = () => {
   const machine = useRecoilValue(machineAtom);
   const notes = useRecoilValue(notesAtom);
-  const noteTableArray = getNoteTable(notes);
+  const noteTableArray = useRecoilValue(noteTableState);
   // create our instrument
   const poly = new Tone.PolySynth().toDestination();
 
