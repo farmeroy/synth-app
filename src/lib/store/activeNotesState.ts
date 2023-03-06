@@ -1,6 +1,10 @@
 import { atomFamily, selectorFamily } from "recoil";
 import machineAtom from "./machineAtom";
 
+export type TActiveNotes = boolean[];
+
+// an array of the current notes that should play
+
 const activeNotesState = atomFamily({
   key: "activeNotesState",
   default: selectorFamily({

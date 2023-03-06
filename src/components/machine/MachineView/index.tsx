@@ -1,19 +1,25 @@
-import NoteRow from "../../notes/NoteRow";
 import * as Tone from "tone";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
-import notesAtom, { TNotes } from "../../../lib/store/notesAtom";
 import { Frequency } from "tone/build/esm/core/type/Units";
 import noteTableState from "../../../lib/store/noteTableState";
+import activeBeatState from "../../../lib/store/currentBeatState";
 
 const MachineView = () => {
   const machine = useRecoilValue(machineAtom);
-  const notes = useRecoilValue(notesAtom);
   const noteTableArray = useRecoilValue(noteTableState);
+  const setCurrentBeat = useSetRecoilState(activeBeatState);
   // create our instrument
   const poly = new Tone.PolySynth().toDestination();
 
+  const updateBeat = () => {
+    setCurrentBeat((state) => (state < machine.width - 1 ? (state += 1) : 0));
+  };
+
+  console.log("render");
+
   const handleMachinePlay = () => {
+    setCurrentBeat(0);
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.start();
@@ -32,21 +38,18 @@ const MachineView = () => {
         `0:${i}:0`
       );
     }
+    Tone.Transport.scheduleRepeat(
+      () => {
+        updateBeat();
+      },
+      "4n",
+      "0:1:0"
+    );
     Tone.Transport.start();
   };
 
-  const noteTable = notes.map((note, index) => (
-    <NoteRow
-      index={index}
-      key={Math.random()}
-      activeNotes={note.activeNotes}
-      waveShape={note.waveShape}
-      note={note.note}
-    />
-  ));
   return (
     <>
-      <div className="flex-col w-full">{noteTable}</div>
       <button onClick={handleMachinePlay}>Start</button>
       <button
         onClick={() => {
