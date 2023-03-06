@@ -14,6 +14,8 @@ const MachineView = () => {
   const poly = new Tone.PolySynth().toDestination();
 
   const handleMachinePlay = () => {
+    Tone.Transport.stop();
+    Tone.Transport.cancel();
     Tone.start();
     // @todo: machine.width has to be the same as the length of the active notes!
     for (let i = 0; i < machine.width; i++) {
