@@ -19,16 +19,10 @@ const MachineView = () => {
   };
 
   const handleAddBeat = () => {
-    setMachineState((state) => {
-      let width = state.width;
-      width = width += 1;
-      return { ...state, width: width };
-    });
-
-    console.log(machineState.width);
+    setMachineState((state) => ({ ...state, width: state.width + 1 }));
   };
   const handleAddNote = () => {
-    setMachineState((state) => ({ ...state, height: machineState.height++ }));
+    setMachineState((state) => ({ ...state, height: state.height + 1 }));
   };
 
   console.log("render");
