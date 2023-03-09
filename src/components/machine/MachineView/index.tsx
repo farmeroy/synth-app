@@ -1,19 +1,34 @@
 import * as Tone from "tone";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
 import { Frequency } from "tone/build/esm/core/type/Units";
 import noteTableState from "../../../lib/store/noteTableState";
 import activeBeatState from "../../../lib/store/currentBeatState";
 
 const MachineView = () => {
-  const machine = useRecoilValue(machineAtom);
+  const [machineState, setMachineState] = useRecoilState(machineAtom);
   const noteTableArray = useRecoilValue(noteTableState);
   const setCurrentBeat = useSetRecoilState(activeBeatState);
   // create our instrument
   const poly = new Tone.PolySynth().toDestination();
 
   const updateBeat = () => {
-    setCurrentBeat((state) => (state < machine.width - 1 ? (state += 1) : 0));
+    setCurrentBeat((state) =>
+      state < machineState.width - 1 ? (state += 1) : 0
+    );
+  };
+
+  const handleAddBeat = () => {
+    setMachineState((state) => {
+      let width = state.width;
+      width = width += 1;
+      return { ...state, width: width };
+    });
+
+    console.log(machineState.width);
+  };
+  const handleAddNote = () => {
+    setMachineState((state) => ({ ...state, height: machineState.height++ }));
   };
 
   console.log("render");
@@ -23,8 +38,9 @@ const MachineView = () => {
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.start();
+    Tone.Transport.timeSignature = machineState.width;
     // @todo: machine.width has to be the same as the length of the active notes!
-    for (let i = 0; i < machine.width; i++) {
+    for (let i = 0; i < machineState.width; i++) {
       Tone.Transport.scheduleRepeat(
         () => {
           poly.triggerAttackRelease(
@@ -59,6 +75,11 @@ const MachineView = () => {
       >
         stop
       </button>
+      <div>
+        <p>Controls</p>
+        <button onClick={handleAddBeat}>Add Beat</button>
+        <button onClick={handleAddNote}>Add Note</button>
+      </div>
     </>
   );
 };
