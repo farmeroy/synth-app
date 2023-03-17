@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import activeNotesState from "../../../lib/store/activeNotesState";
+import activeBeatState from "../../../lib/store/activeBeatsAtom";
 import noteIsActive from "../../../lib/store/noteIsActive";
 export interface NoteProps {
   note: string;
@@ -8,9 +8,9 @@ export interface NoteProps {
 }
 const Note = ({ note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
-    activeNotesState(indexRow)
+    activeBeatState(indexRow)
   );
-  const noteIsActiveState = useRecoilValue(noteIsActive(index));
+  const noteIsActiveState = useRecoilValue(noteIsActive(indexRow));
   const handleUpdateIsActive = () => {
     const state = [...activeNotes];
     state[index] = !activeNotes[index];

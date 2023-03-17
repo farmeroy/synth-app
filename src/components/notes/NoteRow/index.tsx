@@ -5,15 +5,13 @@ export interface NoteRowProps {
   index: number;
 }
 
+import { useRecoilValue } from "recoil";
+import activeNotesState from "../../../lib/store/activeNotesState";
 import Note from "../Note";
 import NoteControls from "../NoteControls";
 
-const NoteRow = ({
-  note,
-  index: indexRow,
-  waveShape,
-  activeNotes,
-}: NoteRowProps) => {
+const NoteRow = ({ note, index: indexRow, waveShape }: NoteRowProps) => {
+  const activeNotes = useRecoilValue(activeNotesState(indexRow));
   const notes = activeNotes.map((isActive, index) => (
     <Note key={Math.random()} indexRow={indexRow} index={index} note={note} />
   ));

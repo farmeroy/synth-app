@@ -1,4 +1,4 @@
-import { atomFamily, selector } from "recoil";
+import { selectorFamily, selector } from "recoil";
 import activeBeatState from "./activeBeatsAtom";
 import machineAtom from "./machineAtom";
 
@@ -6,28 +6,22 @@ export type TActiveNotes = boolean[];
 
 // an array of the current notes that should play
 
-const activeNotesState = atomFamily({
-  key: "activeNotesState",
-  default: selector({
-    key: "defaultActiveNotes",
-    get: ({ get }) => {
-      const activeNotes = [];
+const activeNotesState = selectorFamily({
+  key: "defaultActiveNotes",
+  get:
+    (id) =>
+    ({ get }) => {
+      const activeNotes = get(activeBeatState(id));
       const machine = get(machineAtom);
       const numberOfNotes = machine.width;
-      for (let i = 0; i < numberOfNotes; i++) {
-        const activeBeats = get(activeBeatState(i));
-        activeNotes.push(activeBeats);
+      const notesToAdd = [];
+      if (activeNotes.length < numberOfNotes) {
+        for (let i = numberOfNotes - activeNotes.length; i > 0; i--) {
+          notesToAdd.push(false);
+        }
       }
-      return activeNotes;
+      return [...activeNotes, ...notesToAdd];
     },
-    set: ({ get, set }, value) => {
-      const machine = get(machineAtom);
-      const numberOfNotes = machine.width;
-      for (let i = 0; i < numberOfNotes; i++) {
-        const;
-      }
-    },
-  }),
 });
 
 export default activeNotesState;

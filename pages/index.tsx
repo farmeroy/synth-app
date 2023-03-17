@@ -15,7 +15,6 @@ export default function Home() {
     <NoteRow
       index={index}
       key={Math.random()}
-      activeNotes={note.activeNotes}
       waveShape={note.waveShape}
       note={note.note}
     />
