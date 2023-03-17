@@ -11,6 +11,9 @@ export interface INote {
 
 export type TNotes = INote[];
 
+/** A 2d array of booleans that
+ * decides if tone.js should play a note or not */
+
 const notesAtom = atom({
   key: "notesObject",
   default: selector({
