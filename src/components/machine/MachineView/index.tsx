@@ -32,6 +32,12 @@ const MachineView = () => {
 
   console.log("render");
 
+  const getNoteToPlay = (id: number) => {
+    return noteTableArray
+      .map((notes) => notes[id])
+      .filter((note) => note !== null) as Frequency | Frequency[];
+  };
+
   const handleMachinePlay = () => {
     setCurrentBeat(0);
     Tone.Transport.stop();
@@ -42,12 +48,7 @@ const MachineView = () => {
     for (let i = 0; i < machineState.width; i++) {
       Tone.Transport.scheduleRepeat(
         () => {
-          poly.triggerAttackRelease(
-            noteTableArray
-              .map((notes) => notes[i])
-              .filter((note) => note !== null) as Frequency | Frequency[],
-            "8n"
-          );
+          poly.triggerAttackRelease(getNoteToPlay(i), "8n");
         },
         "1n",
         `0:${i}:0`
