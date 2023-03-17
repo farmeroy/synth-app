@@ -1,6 +1,10 @@
 import Head from "next/head";
 import { Suspense } from "react";
-import Sequencer from "./sequencer";
+
+import dynamic from "next/dynamic";
+const Sequencer = dynamic(() => import("./sequencer"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (

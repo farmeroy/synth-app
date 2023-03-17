@@ -1,6 +1,11 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import activeBeatState from "../../../lib/store/activeBeatsAtom";
+import { Loop, Synth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
+import { useEffect } from "react";
+import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
+import machineAtom from "../../../lib/store/machineAtom";
+
 export interface NoteProps {
   note: string;
   index: number;
@@ -10,7 +15,26 @@ const Note = ({ note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
     activeBeatState(indexRow)
   );
-  const noteIsActiveState = useRecoilValue(noteIsActive(indexRow));
+  const noteIsActiveState = useRecoilValue(noteIsActive(index));
+  const machineIsOnState = useRecoilValue(machineIsOnAtom);
+  const machine = useRecoilValue(machineAtom);
+
+  useEffect(() => {
+    const synth = new Synth().toDestination();
+    const loop = new Loop(() => {
+      synth.triggerAttackRelease(note, "8n");
+    }, "1n");
+    if (activeNotes[index] === true && machineIsOnState) {
+      loop.start(`0:${index}:0`);
+    } else {
+      loop.stop().cancel();
+    }
+    return () => {
+      loop.dispose();
+      synth.dispose();
+    };
+  }, [activeNotes, index, note, machineIsOnState, machine.width]);
+
   const handleUpdateIsActive = () => {
     const state = [...activeNotes];
     state[index] = !activeNotes[index];

@@ -1,7 +1,6 @@
 export interface NoteRowProps {
   note: string;
   waveShape: string;
-  activeNotes: boolean[];
   index: number;
 }
 

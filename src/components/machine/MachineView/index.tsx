@@ -1,12 +1,13 @@
-import * as Tone from "tone";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
 import { Frequency } from "tone/build/esm/core/type/Units";
 import noteTableState from "../../../lib/store/noteTableState";
 import activeBeatState from "../../../lib/store/currentBeatState";
-
+import * as Tone from "tone";
+import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 const MachineView = () => {
   const [machineState, setMachineState] = useRecoilState(machineAtom);
+  const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
   const noteTableArray = useRecoilValue(noteTableState);
   const setCurrentBeat = useSetRecoilState(activeBeatState);
   // create our instrument
@@ -30,30 +31,13 @@ const MachineView = () => {
     setMachineState((state) => ({ ...state, height: state.height + 1 }));
   };
 
-  console.log("render");
-
-  const getNoteToPlay = (id: number) => {
-    return noteTableArray
-      .map((notes) => notes[id])
-      .filter((note) => note !== null) as Frequency | Frequency[];
-  };
-
+  Tone.Transport.timeSignature = machineState.width;
   const handleMachinePlay = () => {
     setCurrentBeat(0);
+    setMachineIsOn(true);
     Tone.Transport.stop();
     Tone.Transport.cancel();
     Tone.start();
-    Tone.Transport.timeSignature = machineState.width;
-    // @todo: machine.width has to be the same as the length of the active notes!
-    for (let i = 0; i < machineState.width; i++) {
-      Tone.Transport.scheduleRepeat(
-        () => {
-          poly.triggerAttackRelease(getNoteToPlay(i), "8n");
-        },
-        "1n",
-        `0:${i}:0`
-      );
-    }
     Tone.Transport.scheduleRepeat(
       () => {
         updateBeat();
@@ -71,6 +55,7 @@ const MachineView = () => {
         onClick={() => {
           Tone.Transport.stop();
           Tone.Transport.cancel();
+          setMachineIsOn(false);
         }}
       >
         stop

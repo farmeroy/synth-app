@@ -16,7 +16,6 @@ const Sequencer = () => {
   const notes = useRecoilValue(notesAtom);
   const noteTable = notes.map((note, index) => (
     <NoteRow
-      tone={Tone}
       index={index}
       key={Math.random()}
       waveShape={note.waveShape}
@@ -25,7 +24,7 @@ const Sequencer = () => {
   ));
   return (
     <>
-      <Machine tone={Tone} />
+      <Machine />
       <div className="flex-col w-full">{noteTable}</div>
     </>
   );
