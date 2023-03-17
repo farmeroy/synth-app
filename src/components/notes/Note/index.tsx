@@ -11,7 +11,7 @@ export interface NoteProps {
   index: number;
   indexRow: number;
 }
-const Note = ({ note, indexRow, index }: NoteProps) => {
+const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
     activeBeatState(indexRow)
   );
@@ -20,7 +20,7 @@ const Note = ({ note, indexRow, index }: NoteProps) => {
   const machine = useRecoilValue(machineAtom);
 
   useEffect(() => {
-    const synth = new Synth().toDestination();
+    // const synth = new Synth().toDestination();
     const loop = new Loop(() => {
       synth.triggerAttackRelease(note, "8n");
     }, "1n");
@@ -31,9 +31,9 @@ const Note = ({ note, indexRow, index }: NoteProps) => {
     }
     return () => {
       loop.dispose();
-      synth.dispose();
+      // synth.dispose();
     };
-  }, [activeNotes, index, note, machineIsOnState, machine.width]);
+  }, [activeNotes, synth, index, note, machineIsOnState, machine.width]);
 
   const handleUpdateIsActive = () => {
     const state = [...activeNotes];

@@ -32,6 +32,7 @@ const MachineView = () => {
   };
 
   Tone.Transport.timeSignature = machineState.width;
+
   const handleMachinePlay = () => {
     setCurrentBeat(0);
     setMachineIsOn(true);
