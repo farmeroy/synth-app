@@ -21,6 +21,11 @@ const MachineView = () => {
   const handleAddBeat = () => {
     setMachineState((state) => ({ ...state, width: state.width + 1 }));
   };
+
+  const handleRemoveBeat = () => {
+    setMachineState((state) => ({ ...state, width: state.width - 1 }));
+  };
+
   const handleAddNote = () => {
     setMachineState((state) => ({ ...state, height: state.height + 1 }));
   };
@@ -72,6 +77,7 @@ const MachineView = () => {
       <div>
         <p>Controls</p>
         <button onClick={handleAddBeat}>Add Beat</button>
+        <button onClick={handleRemoveBeat}>Remove Beat</button>
         <button onClick={handleAddNote}>Add Note</button>
       </div>
     </>
