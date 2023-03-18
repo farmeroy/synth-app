@@ -1,13 +1,10 @@
 import Head from "next/head";
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 
-const SynthWrapper = dynamic(
-  () => import("../src/components/synth/SynthWrapper"),
-  {
-    ssr: false,
-  }
-);
+import dynamic from "next/dynamic";
+const Sequencer = dynamic(() => import("./sequencer"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -19,7 +16,7 @@ export default function Home() {
         <h1>Synth App</h1>
       </div>
       <Suspense>
-        <SynthWrapper />
+        <Sequencer />
       </Suspense>
     </>
   );
