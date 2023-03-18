@@ -10,7 +10,9 @@ export interface NoteProps {
   note: string;
   index: number;
   indexRow: number;
+  synth: Synth;
 }
+
 const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
     activeBeatState(indexRow)
