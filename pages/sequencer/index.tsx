@@ -25,7 +25,7 @@ const Sequencer = () => {
   return (
     <>
       <Machine />
-      <div className="flex-col w-full">{noteTable}</div>
+      <div className="flex-col w-full p-6">{noteTable}</div>
     </>
   );
 };

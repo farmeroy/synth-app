@@ -20,7 +20,6 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const machine = useRecoilValue(machineAtom);
 
   useEffect(() => {
-    // const synth = new Synth().toDestination();
     const loop = new Loop(() => {
       synth.triggerAttackRelease(note, "8n");
     }, "1n");
@@ -31,7 +30,6 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
     }
     return () => {
       loop.dispose();
-      // synth.dispose();
     };
   }, [activeNotes, synth, index, note, machineIsOnState, machine.width]);
 
@@ -46,11 +44,11 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
 
   return (
     <button
-      className={`border border-black w-full ${
+      className={`border rounded border-black m-1 w-full ${
         activeNotes[index] ? styleActive : null
       } ${noteIsActiveState ? styleCurrentBeat : null}`}
       onClick={handleUpdateIsActive}
-    >{`${note} ${index}`}</button>
+    />
   );
 };
 

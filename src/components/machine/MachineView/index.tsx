@@ -1,5 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
+import { button } from "./styles";
 import { Frequency } from "tone/build/esm/core/type/Units";
 import noteTableState from "../../../lib/store/noteTableState";
 import activeBeatState from "../../../lib/store/currentBeatState";
@@ -63,9 +64,15 @@ const MachineView = () => {
       </button>
       <div>
         <p>Controls</p>
-        <button onClick={handleAddBeat}>Add Beat</button>
-        <button onClick={handleRemoveBeat}>Remove Beat</button>
-        <button onClick={handleAddNote}>Add Note</button>
+        <button className={button} onClick={handleAddBeat}>
+          Add Beat
+        </button>
+        <button className={button} onClick={handleRemoveBeat}>
+          Remove Beat
+        </button>
+        <button className={button} onClick={handleAddNote}>
+          Add Note
+        </button>
       </div>
     </>
   );

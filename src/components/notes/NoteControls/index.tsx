@@ -16,7 +16,7 @@ const NoteControls = ({ index }: NoteControlsProps) => {
   };
 
   return (
-    <>
+    <div className="m-1">
       <select onChange={handleSetNote} defaultValue={noteRow.note}>
         {notes.map((note) => (
           <option key={note} value={note}>
@@ -24,7 +24,7 @@ const NoteControls = ({ index }: NoteControlsProps) => {
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
