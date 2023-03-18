@@ -2,6 +2,8 @@ import { selector } from "recoil";
 import activeNotesState from "./activeNotesState";
 import notesAtom from "./notesAtom";
 
+// not used
+
 const noteTableState = selector({
   key: "noteTable",
   get: ({ get }) => {

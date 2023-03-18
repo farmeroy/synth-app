@@ -1,18 +1,13 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
 import { button } from "./styles";
-import { Frequency } from "tone/build/esm/core/type/Units";
-import noteTableState from "../../../lib/store/noteTableState";
 import activeBeatState from "../../../lib/store/currentBeatState";
 import * as Tone from "tone";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 const MachineView = () => {
   const [machineState, setMachineState] = useRecoilState(machineAtom);
   const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
-  const noteTableArray = useRecoilValue(noteTableState);
   const setCurrentBeat = useSetRecoilState(activeBeatState);
-  // create our instrument
-  const poly = new Tone.PolySynth().toDestination();
 
   const updateBeat = () => {
     setCurrentBeat((state) =>
@@ -36,18 +31,21 @@ const MachineView = () => {
 
   const handleMachinePlay = () => {
     setCurrentBeat(0);
-    setMachineIsOn(true);
-    Tone.Transport.stop();
-    Tone.Transport.cancel();
+    if (machineIsOn) {
+      Tone.Transport.stop();
+    }
+    if (!machineIsOn) {
+      Tone.Transport.scheduleRepeat(
+        () => {
+          updateBeat();
+        },
+        "4n",
+        "0:1:0"
+      );
+    }
     Tone.start();
-    Tone.Transport.scheduleRepeat(
-      () => {
-        updateBeat();
-      },
-      "4n",
-      "0:1:0"
-    );
     Tone.Transport.start();
+    setMachineIsOn(true);
   };
 
   return (
