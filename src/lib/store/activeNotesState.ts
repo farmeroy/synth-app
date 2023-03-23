@@ -1,5 +1,5 @@
 import { selectorFamily, selector } from "recoil";
-import activeBeatState from "./activeBeatsAtom";
+import noteRowActiveBeatsAtom from "./noteRowActiveBeatsAtom";
 import machineAtom from "./machineAtom";
 
 export type TActiveNotes = boolean[];
@@ -13,7 +13,7 @@ const activeNotesState = selectorFamily({
   get:
     (id) =>
     ({ get }) => {
-      const activeNotes = get(activeBeatState(id));
+      const activeNotes = get(noteRowActiveBeatsAtom(id));
       const machine = get(machineAtom);
       const numberOfNotes = machine.width;
       const notesToAdd = [];

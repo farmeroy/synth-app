@@ -1,6 +1,5 @@
 import { selector } from "recoil";
-import beatsAtom from "./beatsAtom";
-import activeBeatState from "./activeBeatsAtom";
+import noteRowActiveBeatsAtom from "./noteRowActiveBeatsAtom";
 import machineAtom from "./machineAtom";
 
 /**
@@ -13,7 +12,7 @@ const activeBeatsSelector = selector({
     const machine = get(machineAtom);
     const numberOfNotes = machine.width;
     for (let i = 0; i < numberOfNotes; i++) {
-      const activeBeats = get(activeBeatState(i));
+      const activeBeats = get(noteRowActiveBeatsAtom(i));
       if (activeBeats.length < numberOfNotes) {
         activeBeats.push(false);
       }

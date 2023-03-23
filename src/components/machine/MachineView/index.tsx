@@ -1,13 +1,13 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
 import { button } from "./styles";
-import activeBeatState from "../../../lib/store/currentBeatState";
+import currentBeatAtom from "../../../lib/store/currentBeatAtom";
 import * as Tone from "tone";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 const MachineView = () => {
   const [machineState, setMachineState] = useRecoilState(machineAtom);
   const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
-  const setCurrentBeat = useSetRecoilState(activeBeatState);
+  const setCurrentBeat = useSetRecoilState(currentBeatAtom);
 
   const updateBeat = () => {
     setCurrentBeat((state) =>

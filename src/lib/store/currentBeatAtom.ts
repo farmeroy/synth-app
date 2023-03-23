@@ -1,8 +1,8 @@
 import { atom } from "recoil";
 // tracks the current beat in the tone.Transport
-const activeBeatState = atom({
-  key: "activeBeatState",
+const currentBeatAtom = atom({
+  key: "noteRowActiveBeatsAtom",
   default: 0,
 });
 
-export default activeBeatState;
+export default currentBeatAtom;

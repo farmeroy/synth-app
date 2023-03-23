@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import activeBeatState from "../../../lib/store/activeBeatsAtom";
+import noteRowActiveBeatsAtom from "../../../lib/store/noteRowActiveBeatsAtom";
 import { Loop, Synth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
@@ -15,7 +15,7 @@ export interface NoteProps {
 
 const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
-    activeBeatState(indexRow)
+    noteRowActiveBeatsAtom(indexRow)
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
