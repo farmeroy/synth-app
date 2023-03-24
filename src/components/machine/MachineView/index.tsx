@@ -4,6 +4,7 @@ import { button } from "./styles";
 import currentBeatAtom from "../../../lib/store/currentBeatAtom";
 import * as Tone from "tone";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
+import MachineInputBPM from "../MachineInputBPM";
 const MachineView = () => {
   const [machineState, setMachineState] = useRecoilState(machineAtom);
   const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
@@ -13,11 +14,6 @@ const MachineView = () => {
     setCurrentBeat((state) =>
       state < machineState.width - 1 ? (state += 1) : 0
     );
-  };
-
-  const handleUpdateTempo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    Tone.Transport.bpm.value = Number(e.target.value);
-    setMachineState((state) => ({ ...state, tempo: Number(e.target.value) }));
   };
 
   const handleAddBeat = () => {
@@ -31,6 +27,9 @@ const MachineView = () => {
   const handleAddNote = () => {
     setMachineState((state) => ({ ...state, height: state.height + 1 }));
   };
+  const handleRemoveNote = () => {
+    setMachineState((state) => ({ ...state, height: state.height - 1 }));
+  };
 
   Tone.Transport.timeSignature = machineState.width;
 
@@ -40,6 +39,7 @@ const MachineView = () => {
       Tone.Transport.stop();
     }
     if (!machineIsOn) {
+      Tone.Transport.clear;
       Tone.Transport.scheduleRepeat(
         () => {
           updateBeat();
@@ -54,9 +54,12 @@ const MachineView = () => {
   };
 
   return (
-    <>
-      <button onClick={handleMachinePlay}>Start</button>
+    <div className="p-8">
+      <button className={button} onClick={handleMachinePlay}>
+        Start
+      </button>
       <button
+        className={button}
         onClick={() => {
           Tone.Transport.stop();
           Tone.Transport.cancel();
@@ -66,7 +69,6 @@ const MachineView = () => {
         stop
       </button>
       <div>
-        <p>Controls</p>
         <button className={button} onClick={handleAddBeat}>
           Add Beat
         </button>
@@ -76,13 +78,12 @@ const MachineView = () => {
         <button className={button} onClick={handleAddNote}>
           Add Note
         </button>
-        <input
-          type="number"
-          value={machineState.tempo}
-          onChange={(e) => handleUpdateTempo(e)}
-        />
+        <button className={button} onClick={handleRemoveNote}>
+          Remove Note
+        </button>
+        <MachineInputBPM />
       </div>
-    </>
+    </div>
   );
 };
 

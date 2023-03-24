@@ -1,4 +1,4 @@
-import notesAtom, { TNotes } from "../../src/lib/store/notesAtom";
+import notesAtom from "../../src/lib/store/notesAtom";
 import * as Tone from "tone";
 import { useRecoilValue } from "recoil";
 import dynamic from "next/dynamic";
