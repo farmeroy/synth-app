@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import noteRowActiveBeatsAtom from "../../../lib/store/noteRowActiveBeatsAtom";
-import { Loop, Synth } from "tone";
+import { Loop, PolySynth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
@@ -10,7 +10,7 @@ export interface NoteProps {
   note: string;
   index: number;
   indexRow: number;
-  synth: Synth;
+  synth: PolySynth;
 }
 
 const Note = ({ synth, note, indexRow, index }: NoteProps) => {

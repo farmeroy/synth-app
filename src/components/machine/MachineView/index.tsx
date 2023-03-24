@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import machineAtom from "../../../lib/store/machineAtom";
 import { button } from "./styles";
 import currentBeatAtom from "../../../lib/store/currentBeatAtom";
@@ -13,6 +13,11 @@ const MachineView = () => {
     setCurrentBeat((state) =>
       state < machineState.width - 1 ? (state += 1) : 0
     );
+  };
+
+  const handleUpdateTempo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    Tone.Transport.bpm.value = Number(e.target.value);
+    setMachineState((state) => ({ ...state, tempo: Number(e.target.value) }));
   };
 
   const handleAddBeat = () => {
@@ -71,6 +76,11 @@ const MachineView = () => {
         <button className={button} onClick={handleAddNote}>
           Add Note
         </button>
+        <input
+          type="number"
+          value={machineState.tempo}
+          onChange={(e) => handleUpdateTempo(e)}
+        />
       </div>
     </>
   );
