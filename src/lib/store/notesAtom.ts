@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 import { Frequency } from "tone/build/esm/core/type/Units";
-import machineAtom from "./machineAtom";
 import noteState from "./noteState";
+import machineNotesCount from "./machineNotesCount";
 
 export interface INote {
   note: Frequency;
@@ -19,9 +19,9 @@ const notesAtom = atom({
   default: selector({
     key: "defaultNotes",
     get: ({ get }) => {
-      const machine = get(machineAtom);
+      const notesCount = get(machineNotesCount);
       const defaultNotes = [];
-      for (let i = 0; i < machine.height; i++) {
+      for (let i = 0; i < notesCount; i++) {
         defaultNotes.push(get(noteState(i)));
       }
       return defaultNotes;

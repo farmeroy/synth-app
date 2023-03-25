@@ -4,7 +4,7 @@ import { Loop, PolySynth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
-import machineAtom from "../../../lib/store/machineAtom";
+import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 
 export interface NoteProps {
   note: string;
@@ -19,7 +19,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
-  const machine = useRecoilValue(machineAtom);
+  const machineBeatsCountState = useRecoilValue(machineBeatsCount);
 
   useEffect(() => {
     const loop = new Loop(() => {
@@ -33,7 +33,14 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
     return () => {
       loop.dispose();
     };
-  }, [activeNotes, synth, index, note, machineIsOnState, machine.width]);
+  }, [
+    activeNotes,
+    synth,
+    index,
+    note,
+    machineIsOnState,
+    machineBeatsCountState,
+  ]);
 
   const handleUpdateIsActive = () => {
     const state = [...activeNotes];
