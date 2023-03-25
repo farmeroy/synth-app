@@ -1,20 +1,21 @@
-import machineAtom from "../../../lib/store/machineAtom";
 import { useRecoilState } from "recoil";
 import { Transport } from "tone";
+import machineTempoAtom from "../../../lib/store/machineTempoAtom";
 
 const MachineInputBPM = ({}) => {
-  const [machineState, setMachineState] = useRecoilState(machineAtom);
+  const [machineTempoState, setMachineTempoState] =
+    useRecoilState(machineTempoAtom);
   const handleUpdateTempo = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newTempo = Number(e.target.value);
     if (newTempo > 220) newTempo = 220;
     else if (newTempo < 10) newTempo = 10;
     Transport.bpm.value = newTempo;
-    setMachineState((state) => ({ ...state, tempo: newTempo }));
+    setMachineTempoState(newTempo);
   };
   return (
     <input
       type="number"
-      value={machineState.tempo}
+      value={machineTempoState}
       onChange={(e) => handleUpdateTempo(e)}
     />
   );

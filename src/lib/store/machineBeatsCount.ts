@@ -1,8 +1,8 @@
 import { atom } from "recoil";
 
-const beatsAtom = atom({
+const machineBeatsCount = atom({
   key: "beats",
   default: 4,
 });
 
-export default beatsAtom;
+export default machineBeatsCount;
