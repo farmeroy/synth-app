@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import noteState from "../../../lib/store/noteState";
 import ModalWrapper from "../../shared/ModalWrapper/ModalWrapper";
@@ -17,14 +17,10 @@ const NoteControls = ({ index }: NoteControlsProps) => {
 
   return (
     <div className="m-1">
-      <button onClick={() => setModalIsOpen((state) => !state)}>
-        Open modal
-      </button>
-      {modalIsOpen ? (
-        <ModalWrapper onClose={() => setModalIsOpen(false)}>
-          <NotePicker setNote={handleSetNote} />
-        </ModalWrapper>
-      ) : null}
+      <button onClick={() => setModalIsOpen(true)}>{noteRow.note}</button>
+      <ModalWrapper isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <NotePicker setNote={handleSetNote} />
+      </ModalWrapper>
     </div>
   );
 };

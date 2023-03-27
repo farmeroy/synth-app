@@ -3,10 +3,11 @@ import { ReactNode } from "react";
 interface ModalWrapperProps {
   children: ReactNode;
   onClose: () => void;
+  isOpen: boolean;
 }
 
-const ModalWrapper = ({ children, onClose }: ModalWrapperProps) => {
-  return (
+const ModalWrapper = ({ isOpen, children, onClose }: ModalWrapperProps) => {
+  return isOpen ? (
     <div className="relative z-50">
       <div
         onClick={onClose}
@@ -23,7 +24,7 @@ const ModalWrapper = ({ children, onClose }: ModalWrapperProps) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default ModalWrapper;
