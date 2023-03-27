@@ -15,6 +15,12 @@ export interface NoteProps {
 
 const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
+    // try to replace this atom with
+    // a single atom representing this notes state
+    // -> change noteIsActive to take two coordinates
+    // its own index and the row index {noteIndex: x, rowIndex: y}
+    // then use a selector to collect all the notes and create
+    // an array of active note outside of this component
     noteRowActiveBeatsAtom(indexRow)
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
