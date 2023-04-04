@@ -4,7 +4,7 @@ import { Loop, PolySynth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
-import machineAtom from "../../../lib/store/machineAtom";
+import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 
 export interface NoteProps {
   note: string;
@@ -15,11 +15,17 @@ export interface NoteProps {
 
 const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
+    // try to replace this atom with
+    // a single atom representing this notes state
+    // -> change noteIsActive to take two coordinates
+    // its own index and the row index {noteIndex: x, rowIndex: y}
+    // then use a selector to collect all the notes and create
+    // an array of active note outside of this component
     noteRowActiveBeatsAtom(indexRow)
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
-  const machine = useRecoilValue(machineAtom);
+  const machineBeatsCountState = useRecoilValue(machineBeatsCount);
 
   useEffect(() => {
     const loop = new Loop(() => {
@@ -33,7 +39,14 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
     return () => {
       loop.dispose();
     };
-  }, [activeNotes, synth, index, note, machineIsOnState, machine.width]);
+  }, [
+    activeNotes,
+    synth,
+    index,
+    note,
+    machineIsOnState,
+    machineBeatsCountState,
+  ]);
 
   const handleUpdateIsActive = () => {
     const state = [...activeNotes];

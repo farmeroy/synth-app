@@ -1,29 +1,31 @@
-import { ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import noteState from "../../../lib/store/noteState";
+import ModalWrapper from "../../shared/ModalWrapper/ModalWrapper";
+import NotePicker from "../NotePicker/NotePicker";
 
 interface NoteControlsProps {
   index: number;
 }
 
-const notes = ["A3", "B3", "C3", "D3", "E3", "F3", "G3"];
-
 const NoteControls = ({ index }: NoteControlsProps) => {
   const [noteRow, setNoteRow] = useRecoilState(noteState(index));
-  const handleSetNote = (e: ChangeEvent<HTMLSelectElement>) => {
-    e.preventDefault();
-    setNoteRow({ ...noteRow, note: e.currentTarget.value });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleSetNote = (note: string) => {
+    setNoteRow({ ...noteRow, note: note });
   };
 
   return (
-    <div className="m-1">
-      <select onChange={handleSetNote} defaultValue={noteRow.note}>
-        {notes.map((note) => (
-          <option key={note} value={note}>
-            {note}
-          </option>
-        ))}
-      </select>
+    <div className="m-1 w-full">
+      <button
+        className="w-full border border-black-200 p-2"
+        onClick={() => setModalIsOpen(true)}
+      >
+        {noteRow.note}
+      </button>
+      <ModalWrapper isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <NotePicker setNote={handleSetNote} />
+      </ModalWrapper>
     </div>
   );
 };

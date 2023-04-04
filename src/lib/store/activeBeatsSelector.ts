@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import noteRowActiveBeatsAtom from "./noteRowActiveBeatsAtom";
-import machineAtom from "./machineAtom";
+import machineBeatsCount from "./machineBeatsCount";
 
 /**
  * This keeps the active beats updated
@@ -9,8 +9,7 @@ const activeBeatsSelector = selector({
   key: "activeBeatsSelector",
   get: ({ get }) => {
     const activeNotes = [];
-    const machine = get(machineAtom);
-    const numberOfNotes = machine.width;
+    const numberOfNotes = get(machineBeatsCount);
     for (let i = 0; i < numberOfNotes; i++) {
       const activeBeats = get(noteRowActiveBeatsAtom(i));
       if (activeBeats.length < numberOfNotes) {
