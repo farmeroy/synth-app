@@ -17,6 +17,7 @@ const MachineInputBPM = ({}) => {
       type="number"
       value={machineTempoState}
       onChange={(e) => handleUpdateTempo(e)}
+      className="p-2 w-24 border border-black rounded text-center "
     />
   );
 };

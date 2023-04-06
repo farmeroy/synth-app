@@ -15,9 +15,11 @@ export default function Home() {
       <div className="flex justify-around">
         <h1>Synth App</h1>
       </div>
-      <Suspense>
-        <Sequencer />
-      </Suspense>
+      <div className="p-8">
+        <Suspense>
+          <Sequencer />
+        </Suspense>
+      </div>
     </>
   );
 }

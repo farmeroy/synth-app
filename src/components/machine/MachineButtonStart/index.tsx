@@ -3,6 +3,7 @@ import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
 import currentBeatAtom from "../../../lib/store/currentBeatAtom";
 import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
+import MachineButton from "../MachineButton/MachineButton";
 const MachineButtonStart = () => {
   const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
   const machineBeatsCountState = useRecoilValue(machineBeatsCount);
@@ -32,14 +33,7 @@ const MachineButtonStart = () => {
     Tone.Transport.start();
     setMachineIsOn(true);
   };
-  return (
-    <button
-      className="border border-1 rounded m-1 p-2"
-      onClick={handleMachinePlay}
-    >
-      Start
-    </button>
-  );
+  return <MachineButton clickHandler={handleMachinePlay}>Start</MachineButton>;
 };
 
 export default MachineButtonStart;
