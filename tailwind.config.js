@@ -12,6 +12,10 @@ module.exports = {
         violetdark: "#372554",
         emerald: "#61E786",
       },
+      fontFamily: {
+        monofett: ["Monofett", "cursive"],
+        sharetech: ["Share Tech Mono", "monospace"],
+      },
     },
   },
   plugins: [],
