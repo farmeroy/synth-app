@@ -13,11 +13,13 @@ export default function Home() {
         <title>Synth App</title>
       </Head>
       <div className="flex justify-around">
-        <h1>Synth App</h1>
+        <h1 className="font-sharetech text-4xl text-emerald">Sequencer</h1>
       </div>
-      <Suspense>
-        <Sequencer />
-      </Suspense>
+      <div className="p-8">
+        <Suspense>
+          <Sequencer />
+        </Suspense>
+      </div>
     </>
   );
 }

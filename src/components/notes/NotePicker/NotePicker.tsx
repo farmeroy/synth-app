@@ -11,14 +11,14 @@ const notes = [
 
 const NotePicker = ({ setNote }: NotePickerProps) => {
   return (
-    <div className="flex-column">
+    <div className="flex-column bg-violetlight">
       {notes.map((noteRow) => (
         <div key={Math.random()} className="m-1 p1">
           {noteRow.map((note) => (
             <button
               key={Math.random()}
               onClick={() => setNote(note)}
-              className="p-1 m-1 border border-black"
+              className="p-2 m-1 border rounded hover:brightness-125 transition-all bg-air border-black"
             >
               {note}
             </button>

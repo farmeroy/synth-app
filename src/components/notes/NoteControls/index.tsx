@@ -16,9 +16,9 @@ const NoteControls = ({ index }: NoteControlsProps) => {
   };
 
   return (
-    <div className="m-1 w-full">
+    <div className="m-1">
       <button
-        className="w-full border border-black-200 p-2"
+        className="w-36 border border-black bg-emerald hover:brightness-75 transition-all rounded-lg p-2"
         onClick={() => setModalIsOpen(true)}
       >
         {noteRow.note}

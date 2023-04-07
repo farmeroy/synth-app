@@ -1,15 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Monofett&family=Share+Tech+Mono&display=swap");
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }

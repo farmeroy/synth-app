@@ -15,7 +15,11 @@ const NotesView = () => {
       note={note.note}
     />
   ));
-  return <div className="flex-col w-full p-6">{noteTable}</div>;
+  return (
+    <div className="flex-col border border-black rounded-lg bg-black w-full p-8">
+      {noteTable}
+    </div>
+  );
 };
 
 export default NotesView;
