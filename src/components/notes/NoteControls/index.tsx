@@ -8,8 +8,8 @@ interface NoteControlsProps {
   index: number;
 }
 
-const NoteControls = ({ index }: NoteControlsProps) => {
-  const [noteRow, setNoteRow] = useRecoilState(noteState(index));
+const NoteControls = ({ index, note }: NoteControlsProps) => {
+  const [noteRow, setNoteRow] = useRecoilState(noteState(note));
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleSetNote = (note: string) => {
     setNoteRow({ ...noteRow, note: note });

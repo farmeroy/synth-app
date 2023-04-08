@@ -6,15 +6,17 @@ import { PolySynth } from "tone";
 const NotesView = () => {
   const synth = new PolySynth().toDestination();
   const notes = useRecoilValue(notesAtom);
-  const noteTable = notes.map((note, index) => (
-    <NoteRow
-      synth={synth}
-      index={index}
-      key={Math.random()}
-      waveShape={note.waveShape}
-      note={note.note}
-    />
-  ));
+  const noteTable = notes
+    .filter((note) => note.isActive)
+    .map((note, index) => (
+      <NoteRow
+        synth={synth}
+        index={index}
+        key={Math.random()}
+        waveShape={note.waveShape}
+        note={note.note}
+      />
+    ));
   return (
     <div className="flex-col border border-black rounded-lg bg-black w-full p-8">
       {noteTable}

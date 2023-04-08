@@ -21,7 +21,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
     // its own index and the row index {noteIndex: x, rowIndex: y}
     // then use a selector to collect all the notes and create
     // an array of active note outside of this component
-    noteRowActiveBeatsAtom(indexRow)
+    noteRowActiveBeatsAtom(note)
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);

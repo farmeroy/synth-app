@@ -10,8 +10,9 @@ const noteState = atomFamily({
       ({ get }) => {
         const activeNotes = get(activeNotesState(id));
         return {
-          note: "A3",
+          note: id,
           waveShape: "sine",
+
           activeNotes: [...activeNotes],
         };
       },

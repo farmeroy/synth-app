@@ -12,7 +12,8 @@ import Note from "../Note";
 import NoteControls from "../NoteControls";
 
 const NoteRow = ({ synth, note, index: indexRow, waveShape }: NoteRowProps) => {
-  const activeNotes = useRecoilValue(activeNotesState(indexRow));
+  const activeNotes = useRecoilValue(activeNotesState(note));
+  console.log(note, activeNotes);
   const notes = activeNotes.map((isActive, index) => (
     <Note
       key={Math.random()}
@@ -25,7 +26,7 @@ const NoteRow = ({ synth, note, index: indexRow, waveShape }: NoteRowProps) => {
 
   return (
     <div className="flex h-12 w-full">
-      <NoteControls index={indexRow} />
+      <NoteControls note={note} index={indexRow} />
       {notes}
     </div>
   );

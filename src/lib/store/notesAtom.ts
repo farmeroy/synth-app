@@ -9,6 +9,19 @@ export interface INote {
   activeNotes: boolean[];
 }
 
+const allNotes = [
+  { note: "a3", isActive: true },
+  { note: "b3", isActive: true },
+  { note: "c3", isActive: true },
+  { note: "d3", isActive: true },
+  { note: "e3", isActive: true },
+  { note: "f3", isActive: true },
+  { note: "g3", isActive: true },
+  { note: "a4", isActive: false },
+  { note: "b4", isActive: true },
+  { note: "c4", isActive: true },
+];
+
 export type TNotes = INote[];
 
 /** A 2d array of booleans that
@@ -19,12 +32,7 @@ const notesAtom = atom({
   default: selector({
     key: "defaultNotes",
     get: ({ get }) => {
-      const notesCount = get(machineNotesCount);
-      const defaultNotes = [];
-      for (let i = 0; i < notesCount; i++) {
-        defaultNotes.push(get(noteState(i)));
-      }
-      return defaultNotes;
+      return allNotes;
     },
   }),
 });
