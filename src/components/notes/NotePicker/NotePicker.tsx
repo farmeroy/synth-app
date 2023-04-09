@@ -8,7 +8,7 @@ interface NotePickerProps {
 const NotePicker = ({ setNote }: NotePickerProps) => {
   const [notes, setNotes] = useRecoilState(notesAtom);
   return (
-    <div className="flex-column bg-violetlight">
+    <div className="flex flex-wrap w-ful bg-violetlight">
       {notes.map((note) => (
         <button
           key={Math.random()}
