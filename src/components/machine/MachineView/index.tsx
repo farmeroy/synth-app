@@ -4,7 +4,6 @@ import MachineButtonStop from "../MachineButtonStop";
 import MachineButtonBeatAdd from "../MachineButtonBeatAdd/MachineButtonBeatAdd";
 import MachineButtonBeatRemove from "../MachineButtonBeatRemove/MachineButtonBeatRemove";
 import MachineButtonNoteAdd from "../MachineButtonNoteAdd/MachineButtonNoteAdd";
-import MachineButtonNoteRemove from "../MachineButtonNoteRemove/MachineButtonNoteRemove";
 
 const MachineView = () => {
   return (
@@ -15,7 +14,6 @@ const MachineView = () => {
         <MachineButtonBeatAdd />
         <MachineButtonBeatRemove />
         <MachineButtonNoteAdd />
-        <MachineButtonNoteRemove />
         <MachineInputBPM />
       </div>
     </div>

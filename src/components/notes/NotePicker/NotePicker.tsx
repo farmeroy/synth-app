@@ -1,11 +1,7 @@
 import { useRecoilState } from "recoil";
 import notesAtom from "../../../lib/store/notesAtom";
 
-interface NotePickerProps {
-  setNote: (arg0: string) => void;
-}
-
-const NotePicker = ({ setNote }: NotePickerProps) => {
+const NotePicker = () => {
   const [notes, setNotes] = useRecoilState(notesAtom);
   return (
     <div className="flex flex-wrap w-ful bg-violetlight">
@@ -23,8 +19,11 @@ const NotePicker = ({ setNote }: NotePickerProps) => {
                   isActive: !prevNoteValues.find(
                     (prevNote) => prevNote.note == note.note
                   ).isActive,
+                  frequency: prevNoteValues.find(
+                    (prevNote) => prevNote.note == note.note
+                  ).frequency,
                 },
-              ].sort((a, b) => a.note.localeCompare(b.note))
+              ].sort((a, b) => a.frequency - b.frequency)
             )
           }
           className={`p-2 m-1 border rounded hover:brightness-125 ${
