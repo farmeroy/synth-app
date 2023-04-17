@@ -7,7 +7,7 @@ import MachineButtonNoteAdd from "../MachineButtonNoteAdd/MachineButtonNoteAdd";
 
 const MachineView = () => {
   return (
-    <div className="p-8">
+    <div className="p-4">
       <MachineButtonStart />
       <MachineButtonStop />
       <div>
