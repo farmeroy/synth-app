@@ -5,9 +5,10 @@ import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 import machineBeatsCount from "../../../lib/store/machineBeatsCount";
+import { INote } from "../../../lib/store/notesAtom";
 
 export interface NoteProps {
-  note: string;
+  note: INote;
   index: number;
   indexRow: number;
   synth: PolySynth;
@@ -21,7 +22,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
     // its own index and the row index {noteIndex: x, rowIndex: y}
     // then use a selector to collect all the notes and create
     // an array of active note outside of this component
-    noteRowActiveBeatsAtom(note)
+    noteRowActiveBeatsAtom(note.note)
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
@@ -29,7 +30,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
 
   useEffect(() => {
     const loop = new Loop(() => {
-      synth.triggerAttackRelease(note, "8n");
+      synth.triggerAttackRelease(note.frequency, "8n");
     }, "1n");
     if (activeNotes[index] === true && machineIsOnState) {
       loop.start(`0:${index}:0`);

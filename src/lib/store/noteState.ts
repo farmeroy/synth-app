@@ -10,7 +10,7 @@ const noteState = atomFamily({
       ({ get }) => {
         const activeNotes = get(activeNotesState(id));
         return {
-          note: id,
+          note: id?.toLocaleString(),
           waveShape: "sine",
 
           activeNotes: [...activeNotes],

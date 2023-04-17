@@ -1,6 +1,5 @@
 export interface NoteRowProps {
-  note: string;
-  waveShape: string;
+  note: INote;
   index: number;
   synth: PolySynth;
 }
@@ -8,11 +7,12 @@ export interface NoteRowProps {
 import { useRecoilValue } from "recoil";
 import { PolySynth } from "tone";
 import activeNotesState from "../../../lib/store/activeNotesState";
+import { INote } from "../../../lib/store/notesAtom";
 import Note from "../Note";
 import NoteControls from "../NoteControls";
 
-const NoteRow = ({ synth, note, index: indexRow, waveShape }: NoteRowProps) => {
-  const activeNotes = useRecoilValue(activeNotesState(note));
+const NoteRow = ({ synth, note, index: indexRow }: NoteRowProps) => {
+  const activeNotes = useRecoilValue(activeNotesState(note.note));
   console.log(note, activeNotes);
   const notes = activeNotes.map((isActive, index) => (
     <Note
@@ -26,7 +26,7 @@ const NoteRow = ({ synth, note, index: indexRow, waveShape }: NoteRowProps) => {
 
   return (
     <div className="flex h-12 w-full">
-      <NoteControls note={note} index={indexRow} />
+      <NoteControls note={note.note} index={indexRow} />
       {notes}
     </div>
   );

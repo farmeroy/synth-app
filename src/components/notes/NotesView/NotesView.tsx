@@ -9,13 +9,7 @@ const NotesView = () => {
   const noteTable = notes
     .filter((note) => note.isActive)
     .map((note, index) => (
-      <NoteRow
-        synth={synth}
-        index={index}
-        key={Math.random()}
-        waveShape={note.waveShape}
-        note={note.note}
-      />
+      <NoteRow synth={synth} index={index} key={Math.random()} note={note} />
     ));
   return (
     <div className="flex-col border border-black rounded-lg bg-black w-full p-8">
