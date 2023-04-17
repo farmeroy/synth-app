@@ -61,7 +61,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
 
   return (
     <button
-      className={`border rounded-lg border-black hover:brightness-150 transition-all  m-1 w-full ${
+      className={`border rounded-lg border-black hover:brightness-150 transition-all  m-px w-full ${
         activeNotes[index] ? styleActive : styleInactive
       } ${noteIsActiveState ? styleCurrentBeat : null}`}
       onClick={handleUpdateIsActive}

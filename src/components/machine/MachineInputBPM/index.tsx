@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import { Transport } from "tone";
 import machineTempoAtom from "../../../lib/store/machineTempoAtom";
+import InputRange from "../../shared/InputRange";
 
 const MachineInputBPM = ({}) => {
   const [machineTempoState, setMachineTempoState] =
@@ -13,11 +14,12 @@ const MachineInputBPM = ({}) => {
     setMachineTempoState(newTempo);
   };
   return (
-    <input
-      type="number"
+    <InputRange
+      label="BPM"
+      min={40}
+      max={220}
       value={machineTempoState}
-      onChange={(e) => handleUpdateTempo(e)}
-      className="p-3 w-24 border border-black bg-emerald rounded-full text-center "
+      handleOnChange={(e) => handleUpdateTempo(e)}
     />
   );
 };

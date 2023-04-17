@@ -2,7 +2,8 @@ import { atom, selector } from "recoil";
 import { Frequency } from "tone/build/esm/core/type/Units";
 
 export interface INote {
-  note: Frequency;
+  note: string;
+  frequency: Frequency;
   isActive: boolean;
 }
 

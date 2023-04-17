@@ -18,6 +18,8 @@ const MachineButtonStart = () => {
     setCurrentBeat(0);
     if (machineIsOn) {
       Tone.Transport.stop();
+      Tone.Transport.cancel();
+      setMachineIsOn(false);
     }
     if (!machineIsOn) {
       Tone.Transport.clear;
@@ -28,12 +30,16 @@ const MachineButtonStart = () => {
         "4n",
         "0:1:0"
       );
+      Tone.start();
+      Tone.Transport.start();
+      setMachineIsOn(true);
     }
-    Tone.start();
-    Tone.Transport.start();
-    setMachineIsOn(true);
   };
-  return <MachineButton clickHandler={handleMachinePlay}>Start</MachineButton>;
+  return (
+    <MachineButton clickHandler={handleMachinePlay}>
+      {machineIsOn ? <p>Stop</p> : <p>Play</p>}
+    </MachineButton>
+  );
 };
 
 export default MachineButtonStart;

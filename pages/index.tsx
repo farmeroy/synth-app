@@ -15,7 +15,7 @@ export default function Home() {
       <div className="flex justify-around">
         <h1 className="font-sharetech text-4xl text-emerald">Sequencer</h1>
       </div>
-      <div className="p-8">
+      <div className="p-2">
         <Suspense>
           <Sequencer />
         </Suspense>

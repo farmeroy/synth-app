@@ -12,7 +12,7 @@ const NotesView = () => {
       <NoteRow synth={synth} index={index} key={Math.random()} note={note} />
     ));
   return (
-    <div className="flex-col border border-black rounded-lg bg-black w-full p-8">
+    <div className="flex-col border border-black rounded-lg bg-black w-full p-2">
       {noteTable}
     </div>
   );
