@@ -2,6 +2,7 @@ import MachineButton from "../MachineButton/MachineButton";
 import ModalWrapper from "../../shared/ModalWrapper/ModalWrapper";
 import NotePicker from "../../notes/NotePicker/NotePicker";
 import { useState } from "react";
+import { Music } from "tabler-icons-react";
 
 const MachineButtonNoteAdd = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -9,7 +10,7 @@ const MachineButtonNoteAdd = () => {
   return (
     <>
       <MachineButton clickHandler={() => setModalIsOpen(true)}>
-        Choose Notes
+        <Music />
       </MachineButton>
       <ModalWrapper isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
         <NotePicker />

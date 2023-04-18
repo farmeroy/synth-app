@@ -5,10 +5,12 @@ import MachineControlBeats from "../MachineControlBeats";
 
 const MachineView = () => {
   return (
-    <div className="p-4">
-      <MachineButtonStart />
-      <div>
+    <div className="flex justify-center my-2">
+      <div className="flex">
+        <MachineButtonStart />
         <MachineButtonNoteAdd />
+      </div>
+      <div className="flex-wrap">
         <MachineControlBeats />
         <MachineInputBPM />
       </div>

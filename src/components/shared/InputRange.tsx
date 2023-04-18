@@ -14,7 +14,7 @@ const InputRange = ({
   handleOnChange,
 }: InputRangeProps) => {
   return (
-    <div className="flex m-1 rounded-full border  border-violetlight hover:border-emerald w-fit p-3 bg-violetlight">
+    <div className="flex m-1 rounded-full border  border-violetlight hover:border-emerald w-full p-3 bg-violetlight">
       <label htmlFor={label} className="text-emerald mx-2">
         {label}
       </label>

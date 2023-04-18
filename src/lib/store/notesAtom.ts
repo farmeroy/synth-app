@@ -41,6 +41,9 @@ const allNotes = [
   { note: "eb5", frequency: 622.25, isActive: false },
   { note: "e5", frequency: 659.25, isActive: false },
   { note: "f5", frequency: 698.46, isActive: false },
+  { note: "gb5", frequency: 739.99, isActive: false },
+  { note: "g5", frequency: 783.99, isActive: false },
+  { note: "ab5", frequency: 830.61, isActive: false },
 ];
 
 export type tnotes = inote[];
