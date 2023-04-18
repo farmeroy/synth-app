@@ -46,8 +46,6 @@ const allNotes = [
   { note: "ab5", frequency: 830.61, isActive: false },
 ];
 
-export type tnotes = inote[];
-
 /** a 2d array of booleans that
  * decides if tone.js should play a note or not */
 
