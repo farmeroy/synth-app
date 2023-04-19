@@ -5,16 +5,18 @@ import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 import MachineButton from "../MachineButton/MachineButton";
 import { PlayerPlay, PlayerStop } from "tabler-icons-react";
+
 const MachineButtonStart = () => {
   const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
   const machineBeatsCountState = useRecoilValue(machineBeatsCount);
   const setCurrentBeat = useSetRecoilState(currentBeatAtom);
+
   const updateBeat = () => {
-    setCurrentBeat((state) =>
-      state < machineBeatsCountState - 1 ? (state += 1) : 0
-    );
+    setCurrentBeat(Number(Tone.Transport.position.toString().split(":")[1]));
   };
+
   Tone.Transport.timeSignature = machineBeatsCountState;
+
   const handleMachinePlay = () => {
     setCurrentBeat(0);
     if (machineIsOn) {
@@ -36,6 +38,7 @@ const MachineButtonStart = () => {
       setMachineIsOn(true);
     }
   };
+
   return (
     <MachineButton clickHandler={handleMachinePlay}>
       {machineIsOn ? <PlayerStop /> : <PlayerPlay />}

@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import noteRowActiveBeatsAtom from "../../../lib/store/noteRowActiveBeatsAtom";
-import { Loop, PolySynth } from "tone";
+import { Loop, PolySynth, Transport } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
