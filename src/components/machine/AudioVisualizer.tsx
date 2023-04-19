@@ -8,54 +8,56 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { Analyser, Destination } from "tone";
+import { useRecoilValue } from "recoil";
+import { Analyser, Destination, Transport } from "tone";
+import machineIsOnAtom from "../../lib/store/machineIsOnAtom";
 
 const AudioVisualizer = () => {
   const [data, setData] = useState([]);
+  const machineIsOn = useRecoilValue(machineIsOnAtom);
 
   useEffect(() => {
-    // Create an AnalyserNode
-    const analyser = new Analyser("fft", 64);
+    if (machineIsOn) {
+      const analyser = new Analyser("fft", 16);
+      Destination.connect(analyser);
+      Transport.scheduleRepeat(
+        () => {
+          const frequencyData = analyser.getValue();
+          console.log(frequencyData);
 
-    // Connect it to the Tone.js output
-    Destination.connect(analyser);
+          // Convert the frequency data to an array of data points
+          const newData = Array.from(frequencyData).map((value, index) => ({
+            name: index,
+            value,
+          }));
 
-    // Update the data in real-time
-    const updateData = () => {
-      // Retrieve the frequency data
-      const frequencyData = analyser.getValue();
-
-      // Convert the frequency data to an array of data points
-      const newData = Array.from(frequencyData).map((value, index) => ({
-        name: index,
-        value,
-      }));
-
-      // Update the data state
-      setData(newData);
-
-      // Schedule the next update
-      requestAnimationFrame(updateData);
-    };
-
-    // Start updating the data
-    updateData();
+          // Update the data state
+          setData(newData);
+          console.log(newData);
+          console.log(newData);
+        },
+        "128n",
+        "0:1:0"
+      );
+    }
+    // Schedule the next update
 
     // Clean up the effect
-    return () => {
-      // Stop updating the data
-      cancelAnimationFrame(updateData);
-    };
-  }, []);
-
+  }, [machineIsOn]);
   return (
-    <LineChart width={800} height={400} data={data}>
+    <LineChart width={400} height={200} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="value" stroke="#8884d8" />
+      <YAxis ticks={[-10]} domain={[-80, -10]} />
+      {/* <Tooltip /> */}
+      {/* <Legend /> */}
+      <Line
+        isAnimationActive={false}
+        type="monotone"
+        dataKey="value"
+        stroke="#8884d8"
+        dot={false}
+        connectNulls={true}
+      />
     </LineChart>
   );
 };
