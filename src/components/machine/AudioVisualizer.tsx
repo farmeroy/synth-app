@@ -12,8 +12,13 @@ import { useRecoilValue } from "recoil";
 import { Analyser, Destination, Transport } from "tone";
 import machineIsOnAtom from "../../lib/store/machineIsOnAtom";
 
+interface AudioVisualizerData {
+  name: number;
+  value: number;
+}
+
 const AudioVisualizer = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<AudioVisualizerData[] | null>([]);
   const machineIsOn = useRecoilValue(machineIsOnAtom);
 
   useEffect(() => {
@@ -23,26 +28,18 @@ const AudioVisualizer = () => {
       Transport.scheduleRepeat(
         () => {
           const frequencyData = analyser.getValue();
-          console.log(frequencyData);
-
           // Convert the frequency data to an array of data points
           const newData = Array.from(frequencyData).map((value, index) => ({
             name: index,
             value,
           }));
 
-          // Update the data state
           setData(newData);
-          console.log(newData);
-          console.log(newData);
         },
         "128n",
         "0:1:0"
       );
     }
-    // Schedule the next update
-
-    // Clean up the effect
   }, [machineIsOn]);
   return (
     <LineChart width={400} height={200} data={data}>
