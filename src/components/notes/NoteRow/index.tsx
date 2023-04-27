@@ -13,7 +13,6 @@ import NoteControls from "../NoteControls";
 
 const NoteRow = ({ synth, note, index: indexRow }: NoteRowProps) => {
   const activeNotes = useRecoilValue(activeNotesState(note.note));
-  console.log(note, activeNotes);
   const notes = activeNotes.map((isActive, index) => (
     <Note
       key={Math.random()}
@@ -25,7 +24,7 @@ const NoteRow = ({ synth, note, index: indexRow }: NoteRowProps) => {
   ));
 
   return (
-    <div className="flex h-12 w-full">
+    <div className="flex w-full h-12">
       <NoteControls note={note.note} />
       {notes}
     </div>

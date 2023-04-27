@@ -7,7 +7,7 @@ const MachineButton = ({ clickHandler, children }: MachineButtonProps) => {
   return (
     <button
       onClick={clickHandler}
-      className="m-2 p-3 border border-black bg-emerald rounded-full transition-all hover:brightness-110"
+      className="p-3 m-2 border border-black rounded-full bg-emerald transition-all hover:brightness-110"
     >
       {children}
     </button>
