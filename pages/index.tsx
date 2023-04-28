@@ -18,7 +18,7 @@ export default function Home() {
           <h1>Sequencer</h1>
         </div>
       </div>
-      <div className="p-2">
+      <div className="sm:p-2 md:p-4 lg:px-6 xl:px-12">
         <Suspense>
           <Sequencer />
         </Suspense>

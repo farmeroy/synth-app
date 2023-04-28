@@ -17,7 +17,7 @@ const MachineView = () => {
           <MachineInputBPM />
         </div>
       </div>
-      <div className="flex justify-center w-full max-w-2xl lg:p-8">
+      <div className="flex justify-center w-full max-w-2xl sm:h-44 md:h-44 lg:h-60 md:p-4 lg:p-8">
         <AudioVisualizer />
       </div>
     </div>
