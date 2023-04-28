@@ -1,9 +1,9 @@
-import { Synth } from "tone";
+import { PolySynth } from "tone";
 import { INote } from "../../../lib/store/notesAtom";
 
 interface NoteControlsProps {
   note: INote;
-  synth: Synth;
+  synth: PolySynth;
 }
 
 const NoteControls = ({ note, synth }: NoteControlsProps) => {
