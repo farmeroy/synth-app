@@ -31,10 +31,12 @@ const AudioVisualizer = () => {
         () => {
           const frequencyData = analyser.getValue();
           // Convert the frequency data to an array of data points
-          const newData = Array.from(frequencyData).map((value, index) => ({
-            name: index,
-            value,
-          }));
+          const newData = Array.from(frequencyData as ArrayLike<number>).map(
+            (value, index) => ({
+              name: index,
+              value,
+            })
+          );
 
           setData(newData);
         },
@@ -45,7 +47,7 @@ const AudioVisualizer = () => {
   }, [machineIsOn]);
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data}>
+      <LineChart data={data as any}>
         <CartesianGrid
           horizontal={false}
           vertical={false}
