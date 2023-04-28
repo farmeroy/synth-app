@@ -1,25 +1,24 @@
-import { useState } from "react";
-import ModalWrapper from "../../shared/ModalWrapper/ModalWrapper";
-import NotePicker from "../NotePicker/NotePicker";
+import { Synth } from "tone";
+import { INote } from "../../../lib/store/notesAtom";
 
 interface NoteControlsProps {
-  note: string;
+  note: INote;
+  synth: Synth;
 }
 
-const NoteControls = ({ note }: NoteControlsProps) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const NoteControls = ({ note, synth }: NoteControlsProps) => {
+  const handlePlayFrequency = () => {
+    synth.triggerAttackRelease(note.frequency, "8n");
+  };
 
   return (
     <div className="m-1">
       <button
-        className=" w-12 border border-black bg-emerald hover:brightness-75 transition-all rounded-lg p-2"
-        onClick={() => setModalIsOpen(true)}
+        className="w-12 p-2 border border-black rounded-lg bg-emerald hover:brightness-75 transition-all"
+        onClick={handlePlayFrequency}
       >
-        {note}
+        {note.note}
       </button>
-      <ModalWrapper isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <NotePicker />
-      </ModalWrapper>
     </div>
   );
 };

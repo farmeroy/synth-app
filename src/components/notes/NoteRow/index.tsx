@@ -25,7 +25,7 @@ const NoteRow = ({ synth, note, index: indexRow }: NoteRowProps) => {
 
   return (
     <div className="flex w-full h-12">
-      <NoteControls note={note.note} />
+      <NoteControls note={note} synth={synth} />
       {notes}
     </div>
   );
