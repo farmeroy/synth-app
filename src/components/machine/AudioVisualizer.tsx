@@ -7,6 +7,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
+  CartesianAxis,
 } from "recharts";
 import { useRecoilValue } from "recoil";
 import { Analyser, Destination, Transport } from "tone";
@@ -42,20 +44,25 @@ const AudioVisualizer = () => {
     }
   }, [machineIsOn]);
   return (
-    <LineChart width={400} height={200} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <YAxis ticks={[-10]} domain={[-80, -10]} />
-      {/* <Tooltip /> */}
-      {/* <Legend /> */}
-      <Line
-        isAnimationActive={false}
-        type="monotone"
-        dataKey="value"
-        stroke="#8884d8"
-        dot={false}
-        connectNulls={true}
-      />
-    </LineChart>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={data}>
+        <CartesianGrid
+          horizontal={false}
+          vertical={false}
+          fill="black"
+          fillOpacity={0.2}
+        />
+        <YAxis width={0} ticks={[-10]} domain={[-80, -10]} />
+        <Line
+          isAnimationActive={false}
+          type="monotone"
+          dataKey="value"
+          stroke="#8884d8"
+          dot={false}
+          connectNulls={true}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 
