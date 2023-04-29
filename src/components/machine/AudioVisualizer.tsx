@@ -15,8 +15,27 @@ interface AudioVisualizerData {
   value: number;
 }
 
+const defaultData = [
+  { name: 0, value: -150 },
+  { name: 1, value: -150 },
+  { name: 2, value: -150 },
+  { name: 3, value: -150 },
+  { name: 4, value: -150 },
+  { name: 5, value: -150 },
+  { name: 6, value: -150 },
+  { name: 7, value: -150 },
+  { name: 8, value: -150 },
+  { name: 9, value: -150 },
+  { name: 10, value: -150 },
+  { name: 11, value: -150 },
+  { name: 12, value: -150 },
+  { name: 13, value: -150 },
+  { name: 14, value: -150 },
+  { name: 15, value: -150 },
+];
+
 const AudioVisualizer = () => {
-  const [data, setData] = useState<AudioVisualizerData[] | null>([]);
+  const [data, setData] = useState<AudioVisualizerData[]>(defaultData);
   const machineIsOn = useRecoilValue(machineIsOnAtom);
 
   useEffect(() => {
@@ -42,25 +61,27 @@ const AudioVisualizer = () => {
     }
   }, [machineIsOn]);
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data as any}>
-        <CartesianGrid
-          horizontal={false}
-          vertical={false}
-          fill="black"
-          fillOpacity={0.2}
-        />
-        <YAxis width={0} ticks={[-10]} domain={[-80, -10]} />
-        <Line
-          isAnimationActive={false}
-          type="monotone"
-          dataKey="value"
-          stroke="#8884d8"
-          dot={false}
-          connectNulls={true}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <div className="w-full max-w-2xl p-1 sm:h-52 md:h-44 lg:h-60 md:p-4 lg:p-8">
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={data as any}>
+          <CartesianGrid
+            horizontal={false}
+            vertical={false}
+            fill="black"
+            fillOpacity={0.2}
+          />
+          <YAxis width={0} ticks={[-10]} domain={[-80, -10]} />
+          <Line
+            isAnimationActive={false}
+            type="monotone"
+            dataKey="value"
+            stroke="#8884d8"
+            dot={false}
+            connectNulls={true}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 
