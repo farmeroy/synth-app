@@ -3,6 +3,7 @@ import MachineButtonStart from "../MachineButtonStart";
 import MachineButtonNoteAdd from "../MachineButtonNoteAdd/MachineButtonNoteAdd";
 import MachineControlBeats from "../MachineControlBeats";
 import AudioVisualizer from "../AudioVisualizer";
+import WaveVisualizer from "../WaveVisualizer";
 
 const MachineView = () => {
   return (
@@ -17,7 +18,7 @@ const MachineView = () => {
           <MachineInputBPM />
         </div>
       </div>
-      <AudioVisualizer />
+      {/* <AudioVisualizer /> */}
     </div>
   );
 };
