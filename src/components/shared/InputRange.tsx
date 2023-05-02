@@ -27,7 +27,14 @@ const InputRange = ({
         onChange={(e) => handleOnChange(e)}
         className="w-24 text-center border border-black rounded-full range accent-emerald "
       />
-      <p className="mx-2 text-emerald">{value}</p>
+      <input
+        type="number"
+        className="w-8 mx-2 text-emerald bg-violetlight"
+        min={min ? min : undefined}
+        max={max ? max : undefined}
+        onChange={(e) => handleOnChange(e)}
+        value={value}
+      />
     </div>
   );
 };
