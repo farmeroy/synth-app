@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as Tone from "tone";
 
 interface WaveVisualizerProps {
