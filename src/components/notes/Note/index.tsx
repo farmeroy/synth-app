@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import noteRowActiveBeatsAtom from "../../../lib/store/noteRowActiveBeatsAtom";
-import { Loop, PolySynth, Transport } from "tone";
+import { Loop, PolySynth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
@@ -14,7 +14,7 @@ export interface NoteProps {
   synth: PolySynth;
 }
 
-const Note = ({ synth, note, indexRow, index }: NoteProps) => {
+const Note = ({ synth, note, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
     // try to replace this atom with
     // a single atom representing this notes state
