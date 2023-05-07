@@ -1,12 +1,4 @@
-import { atom, selector } from "recoil";
-import { Frequency } from "tone/build/esm/core/type/Units";
-
-export interface INote {
-  note: string;
-  frequency: Frequency;
-  isActive: boolean;
-}
-
+import { atomFamily } from "recoil";
 const allNotes = [
   { note: "a3", frequency: 110.0, isActive: true },
   { note: "bb3", frequency: 116.54, isActive: false },
@@ -46,25 +38,9 @@ const allNotes = [
   { note: "ab5", frequency: 830.61, isActive: false },
 ];
 
-/** a 2d array of booleans that
- * decides if tone.js should play a note or not */
-
-const notesAtom = atom({
-  key: "notesObject",
-  default: selector({
-    key: "defaultNotes",
-    get: () => {
-      return allNotes;
-    },
-  }),
-  effects: [
-    ({ onSet }) => {
-      onSet((notes) => {
-        console.debug(notes);
-        localStorage.setItem("notes", JSON.stringify(notes));
-      });
-    },
-  ],
+const noteAtomFamily = atomFamily({
+  key: "noteAtomFamily",
+  default: (id) => allNotes.find((note) => note.note === id),
 });
 
-export default notesAtom;
+export default noteAtomFamily;
