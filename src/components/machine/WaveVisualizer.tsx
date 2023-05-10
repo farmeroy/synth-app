@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from "react";
-import * as Tone from "tone";
+import { PolySynth, Waveform } from "tone";
 
 interface WaveVisualizerProps {
-  synth: Tone.PolySynth;
+  synth: PolySynth;
 }
 
 function WaveVisualizer({ synth }: WaveVisualizerProps) {
-  const waveformRef = useRef<Tone.Waveform>();
+  const waveformRef = useRef<Waveform>();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const waveform = new Tone.Waveform();
+    const waveform = new Waveform();
     synth.connect(waveform);
     waveformRef.current = waveform;
     return () => {
@@ -51,6 +51,7 @@ function WaveVisualizer({ synth }: WaveVisualizerProps) {
     context.stroke();
     requestAnimationFrame(drawWaveform);
   }
+
   return <canvas className="w-full h-full px-2" ref={canvasRef} />;
 }
 

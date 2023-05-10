@@ -1,9 +1,8 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Loop, PolySynth } from "tone";
+import { Loop, PolySynth, Transport } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
-import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 import { INote } from "../../../lib/store/notesAtom";
 import noteIsPlayingAtom from "../../../lib/store/noteIsPlayingAtom";
 
@@ -19,12 +18,14 @@ const Note = ({ synth, note, index }: NoteProps) => {
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
-  const machineBeatsCountState = useRecoilValue(machineBeatsCount);
 
-  useEffect(() => {
-    const loop = new Loop(() => {
+  const loop = useMemo(() => {
+    return new Loop(() => {
       synth.triggerAttackRelease(note.frequency, "8n");
     }, "1n");
+  }, [note.frequency, synth]);
+
+  useEffect(() => {
     if (isPlaying === true && machineIsOnState) {
       loop.start(`0:${index}:0`);
     } else {
@@ -33,7 +34,7 @@ const Note = ({ synth, note, index }: NoteProps) => {
     return () => {
       loop.dispose();
     };
-  }, [isPlaying, synth, index, note, machineIsOnState, machineBeatsCountState]);
+  }, [isPlaying, loop, index, note, machineIsOnState]);
 
   const handleUpdateIsActive = () => {
     setIsPlaying((state) => !state);

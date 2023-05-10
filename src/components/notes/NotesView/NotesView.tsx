@@ -4,8 +4,9 @@ import { PolySynth } from "tone";
 import WaveVisualizer from "../../machine/WaveVisualizer";
 import notesInUseAtom from "../../../lib/store/notesInUseAtom";
 
+const synth = new PolySynth().toDestination();
+
 const NotesView = () => {
-  const synth = new PolySynth().toDestination();
   const notes = useRecoilValue(notesInUseAtom);
   const noteTable = notes.map((note, index) => (
     <NoteRow synth={synth} index={index} key={Math.random()} note={note} />
