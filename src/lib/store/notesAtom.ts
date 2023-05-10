@@ -2,10 +2,47 @@ import { atom, selector } from "recoil";
 import { Frequency } from "tone/build/esm/core/type/Units";
 
 export interface INote {
-  note: string;
+  note: TNoteName;
   frequency: Frequency;
-  isActive: boolean;
 }
+
+export type TNoteName =
+  | "a3"
+  | "bb3"
+  | "b3"
+  | "c3"
+  | "db3"
+  | "d3"
+  | "eb3"
+  | "e3"
+  | "f3"
+  | "gb3"
+  | "g3"
+  | "ab3"
+  | "a4"
+  | "bb4"
+  | "b4"
+  | "c4"
+  | "db4"
+  | "d4"
+  | "eb4"
+  | "e4"
+  | "f4"
+  | "gb4"
+  | "g4"
+  | "ab4"
+  | "a5"
+  | "bb5"
+  | "b5"
+  | "c5"
+  | "db5"
+  | "d5"
+  | "eb5"
+  | "e5"
+  | "f5"
+  | "gb5"
+  | "g5"
+  | "ab5";
 
 const allNotes = [
   { note: "a3", frequency: 110.0, isActive: true },

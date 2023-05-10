@@ -8,7 +8,6 @@ import { useRecoilValue } from "recoil";
 import { PolySynth } from "tone";
 import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 import noteFrequencyAtom from "../../../lib/store/noteFrequencyAtom";
-import { INote } from "../../../lib/store/notesAtom";
 import Note from "../Note";
 import NoteControls from "../NoteControls";
 
@@ -24,7 +23,7 @@ const NoteRow = ({ synth, note }: NoteRowProps) => {
 
   return (
     <div className="flex w-full h-12">
-      <NoteControls note={note} synth={synth} frequency={noteData?.frequency} />
+      <NoteControls note={note} synth={synth} frequency={noteData.frequency} />
       {notes}
     </div>
   );

@@ -1,9 +1,11 @@
 import { useRecoilState } from "recoil";
-import { notes } from "../../../lib/notesConfig.json";
+import notesConfig from "../../../lib/notesConfig.json";
+import { INote } from "../../../lib/store/notesAtom";
 import notesInUseAtom from "../../../lib/store/notesInUseAtom";
 
 const NotePicker = () => {
   const [notesInUse, setNotesInUse] = useRecoilState(notesInUseAtom);
+  const notes = notesConfig.notes as INote[];
 
   return (
     <div className="flex-col items-center w-full">
@@ -19,8 +21,10 @@ const NotePicker = () => {
                 ? setNotesInUse((prevState) =>
                     [...prevState, note.note].sort(
                       (a, b) =>
-                        notes.find((note) => note.note == a).frequency -
-                        notes.find((note) => note.note == b).frequency
+                        (notes.find((note) => note.note === a)
+                          ?.frequency as number) -
+                        (notes.find((note) => note.note === b)
+                          ?.frequency as number)
                     )
                   )
                 : setNotesInUse((prevState) =>
@@ -28,8 +32,10 @@ const NotePicker = () => {
                       ...prevState.filter((noteName) => noteName !== note.note),
                     ].sort(
                       (a, b) =>
-                        notes.find((note) => note.note == a).frequency -
-                        notes.find((note) => note.note == b).frequency
+                        (notes.find((note) => note.note == a)
+                          ?.frequency as number) -
+                        (notes.find((note) => note.note == b)
+                          ?.frequency as number)
                     )
                   )
             }
