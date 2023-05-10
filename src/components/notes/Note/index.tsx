@@ -1,21 +1,22 @@
-import { useRecoilValue } from "recoil";
-import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Loop, PolySynth } from "tone";
 import noteIsActive from "../../../lib/store/noteIsActive";
 import { useEffect } from "react";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 import { INote } from "../../../lib/store/notesAtom";
+import noteIsPlayingAtom from "../../../lib/store/noteIsPlayingAtom";
 
 export interface NoteProps {
   note: INote;
   index: number;
-  indexRow: number;
   synth: PolySynth;
 }
 
 const Note = ({ synth, note, index }: NoteProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useRecoilState(
+    noteIsPlayingAtom(`${note.note}-${index}`)
+  );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
   const machineBeatsCountState = useRecoilValue(machineBeatsCount);

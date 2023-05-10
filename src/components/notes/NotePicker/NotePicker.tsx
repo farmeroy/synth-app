@@ -1,8 +1,10 @@
 import { useRecoilState } from "recoil";
-import notesAtom from "../../../lib/store/notesAtom";
+import { notes } from "../../../lib/notesConfig.json";
+import notesInUseAtom from "../../../lib/store/notesInUseAtom";
 
 const NotePicker = () => {
-  const [notes, setNotes] = useRecoilState(notesAtom);
+  const [notesInUse, setNotesInUse] = useRecoilState(notesInUseAtom);
+
   return (
     <div className="flex-col items-center w-full">
       <div className="flex items-center">
@@ -13,27 +15,28 @@ const NotePicker = () => {
           <button
             key={Math.random()}
             onClick={() =>
-              setNotes((prevNoteValues) =>
-                [
-                  ...prevNoteValues.filter(
-                    (prevNote) => prevNote.note != note.note
-                  ),
-                  {
-                    note: note.note,
-                    isActive:
-                      !prevNoteValues?.find(
-                        (prevNote) => prevNote.note == note.note
-                      )?.isActive ?? false,
-                    frequency:
-                      prevNoteValues.find(
-                        (prevNote) => prevNote.note == note.note
-                      )?.frequency ?? 0,
-                  },
-                ].sort((a, b) => a.frequency - b.frequency)
-              )
+              notesInUse.indexOf(note.note) < 0
+                ? setNotesInUse((prevState) =>
+                    [...prevState, note.note].sort(
+                      (a, b) =>
+                        notes.find((note) => note.note == a).frequency -
+                        notes.find((note) => note.note == b).frequency
+                    )
+                  )
+                : setNotesInUse((prevState) =>
+                    [
+                      ...prevState.filter((noteName) => noteName !== note.note),
+                    ].sort(
+                      (a, b) =>
+                        notes.find((note) => note.note == a).frequency -
+                        notes.find((note) => note.note == b).frequency
+                    )
+                  )
             }
             className={`p-2 m-1 border rounded-lg hover:border-emerald ${
-              note.isActive ? "brightness-125" : "brightness-75"
+              notesInUse.indexOf(note.note) > -1
+                ? "brightness-125"
+                : "brightness-75"
             } transition-all bg-air border-black`}
           >
             {note.note}

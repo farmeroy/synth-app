@@ -1,14 +1,15 @@
 import { PolySynth } from "tone";
-import { INote } from "../../../lib/store/notesAtom";
+import { Frequency } from "tone/build/esm/core/type/Units";
 
 interface NoteControlsProps {
-  note: INote;
+  note: string;
   synth: PolySynth;
+  frequency: Frequency;
 }
 
-const NoteControls = ({ note, synth }: NoteControlsProps) => {
+const NoteControls = ({ note, synth, frequency }: NoteControlsProps) => {
   const handlePlayFrequency = () => {
-    synth.triggerAttackRelease(note.frequency, "8n");
+    synth.triggerAttackRelease(frequency, "8n");
   };
 
   return (
@@ -17,7 +18,7 @@ const NoteControls = ({ note, synth }: NoteControlsProps) => {
         className="w-12 p-2 border border-black rounded-lg bg-emerald hover:brightness-75 transition-all"
         onClick={handlePlayFrequency}
       >
-        {note.note}
+        {note}
       </button>
     </div>
   );

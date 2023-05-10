@@ -60,7 +60,6 @@ const notesAtom = atom({
   effects: [
     ({ onSet }) => {
       onSet((notes) => {
-        console.debug(notes);
         localStorage.setItem("notes", JSON.stringify(notes));
       });
     },
