@@ -16,16 +16,18 @@ const Note = ({ synth, note, index }: NoteProps) => {
   const [isPlaying, setIsPlaying] = useRecoilState(
     noteIsPlayingAtom(`${note.note}-${index}`)
   );
+
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
 
-  const loop = useMemo(() => {
-    return new Loop(() => {
+  useEffect(() => {
+    // I would like to move this out of use effect,
+    // but this results in the loop being initialized
+    // with the wrong time signature
+    const loop = new Loop(() => {
       synth.triggerAttackRelease(note.frequency, "8n");
     }, "1n");
-  }, [note.frequency, synth]);
 
-  useEffect(() => {
     if (isPlaying === true && machineIsOnState) {
       loop.start(`0:${index}:0`);
     } else {
@@ -34,7 +36,7 @@ const Note = ({ synth, note, index }: NoteProps) => {
     return () => {
       loop.dispose();
     };
-  }, [isPlaying, loop, index, note, machineIsOnState]);
+  }, [note, machineIsOnState, synth, index, isPlaying]);
 
   const handleUpdateIsActive = () => {
     setIsPlaying((state) => !state);
