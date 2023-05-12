@@ -9,7 +9,7 @@ export default function Document() {
         <meta property="og:description" content="Synth-App" />
         <meta property="og:image" content="/synth-app-1.png" />
       </Head>
-      <body className="bg-violetdark ">
+      <body className="bg-violetdark">
         <Main />
         <NextScript />
       </body>
