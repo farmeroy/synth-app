@@ -11,7 +11,7 @@ function MachineView() {
 
   const handleScroll = () => {
     const scrollPosition = window.pageYOffset;
-    setIsSticky(scrollPosition > 0);
+    setIsSticky(scrollPosition > 50);
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function MachineView() {
         <div
           className={`${
             open
-              ? "p-2 border rounded-lg absolute top-0 border-black bg-[#0009]"
+              ? "p-2 border flex-wrap w-fit flex rounded-lg absolute top-0 border-1 border-violetlight bg-[#0009]"
               : ""
           }`}
         >
@@ -47,11 +47,9 @@ function MachineView() {
               <GridDots className="w-8 h-8 p-1" />
             )}
           </Disclosure.Button>
-          <Disclosure.Panel className="lg:hidden">
-            <div className="xs:flex-col md:flex-wrap">
-              <MachineControlBeats />
-              <MachineInputBPM />
-            </div>
+          <Disclosure.Panel className="xs:flex-wrap md:flex lg:hidden">
+            <MachineControlBeats />
+            <MachineInputBPM />
           </Disclosure.Panel>
         </div>
       )}
@@ -67,7 +65,7 @@ function MachineView() {
       <div className="flex h-full">
         <MachineButtonStart />
         <MachineButtonNoteAdd />
-        <div className="relative flex lg:hidden">
+        <div className="relative flex w-full lg:hidden">
           {isSticky ? hamburgerMenu : menuItems}
         </div>
         <div className="hidden lg:flex lg:flex-grow ">{menuItems}</div>

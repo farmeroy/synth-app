@@ -16,10 +16,6 @@ const MachineButtonStart = () => {
   };
 
   Tone.Transport.timeSignature = machineBeatsCountState;
-  console.log({
-    machineBeatsCountState,
-    timeSignature: Tone.Transport.timeSignature,
-  });
 
   const handleMachinePlay = () => {
     setCurrentBeat(0);
