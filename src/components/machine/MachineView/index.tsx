@@ -48,7 +48,7 @@ function MachineView() {
             )}
           </Disclosure.Button>
           <Disclosure.Panel className="lg:hidden">
-            <div className="xs:flex-col md:flex">
+            <div className="xs:flex-col md:flex-wrap">
               <MachineControlBeats />
               <MachineInputBPM />
             </div>
@@ -60,7 +60,7 @@ function MachineView() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 items-center  ${
+      className={`sticky w-full top-0 z-20 items-center  ${
         isSticky ? "lg:justify-center" : ""
       }`}
     >
@@ -70,8 +70,8 @@ function MachineView() {
         <div className="relative flex lg:hidden">
           {isSticky ? hamburgerMenu : menuItems}
         </div>
+        <div className="hidden lg:flex lg:flex-grow ">{menuItems}</div>
       </div>
-      <div className="hidden lg:flex lg:flex-grow ">{menuItems}</div>
     </nav>
   );
 }
