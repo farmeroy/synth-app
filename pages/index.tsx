@@ -13,12 +13,12 @@ export default function Home() {
       <Head>
         <title>Synth App</title>
       </Head>
-      <div className="flex flex-row justify-center w-full pt-4 ">
+      <div className="flex flex-row justify-start w-full pt-4 ">
         <div className="flex self-center justify-center w-full text-4xl flex-3 font-sharetech text-emerald">
           <h1>Sequencer</h1>
         </div>
       </div>
-      <div className="sm:p-2 md:p-4 lg:px-6 xl:px-12">
+      <div className="relative mt-auto sm:p-2 md:p-4 lg:px-6 xl:px-12 h-min-screen">
         <Suspense>
           <Sequencer />
         </Suspense>
