@@ -25,7 +25,6 @@ function MachineView() {
     <div className="xs:flex-col md:flex">
       <MachineControlBeats />
       <MachineInputBPM />
-      <MachineButtonSave />
     </div>
   );
 
@@ -53,6 +52,7 @@ function MachineView() {
           <Disclosure.Panel className="xs:flex-wrap md:flex lg:hidden">
             <MachineControlBeats />
             <MachineInputBPM />
+            <MachineButtonSave />
           </Disclosure.Panel>
         </div>
       )}
@@ -68,6 +68,7 @@ function MachineView() {
       <div className="flex h-full">
         <MachineButtonStart />
         <MachineButtonNoteAdd />
+        <MachineButtonSave />
         <div className="relative flex w-full lg:hidden">
           {isSticky ? hamburgerMenu : menuItems}
         </div>
